@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import './transaction.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -11,19 +11,35 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+  final List<Transaction> transactions = [
+    Transaction(
+      id: "id1", 
+      title: "SomeTitle1", 
+      amount: 69.99, 
+      date: DateTime.now()
+      ),
+    Transaction(
+      id: "id2", 
+      title: "ElDora", 
+      amount: 01.99, 
+      date: DateTime.now()
+    ),
+    Transaction(
+      id: "id3", 
+      title: "Some wear", 
+      amount: 432.22, 
+      date: DateTime.now()
+      )
+  ];
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: Text("Playground"),
@@ -39,11 +55,33 @@ class MyHomePage extends StatelessWidget {
             elevation: 10,),
           ),
           Container(
-            width: 100,
-            child: Card(color: Colors.purple, 
-              child: Text("List of Transactions", textAlign: TextAlign.center,)
+            child: 
+            Column(children: transactions.map((tx) {
+              return Card(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal:30, vertical: 20),
+                      child: Text('\$' + tx.amount.toString()),
+                      decoration: BoxDecoration(
+                         border: Border.all(
+                          color: Colors.black, width:2,
+                        )
+                      ),
+                      padding: EdgeInsets.all(5),
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(tx.title),
+                        Text(tx.date.toString())
+                      ],
+                    )
+                  ],
+                )
+              );
+            }).toList()
             ),
-          ),
+            )
       ],));
   }
 }
