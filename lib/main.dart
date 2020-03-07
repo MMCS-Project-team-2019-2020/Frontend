@@ -1,76 +1,77 @@
 import 'package:flutter/material.dart';
-import './transaction.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App#2',
-      theme: ThemeData(primarySwatch: Colors.purple),
-      home: MyHomePage(),
+      title: "Login",
+      theme: ThemeData(primaryColor: Colors.purple),
+      home: MyHomePage(title: "Login"),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
-    Transaction(
-        id: "id1", title: "SomeTitle1", amount: 69.99, date: DateTime.now()),
-    Transaction(
-        id: "id2", title: "ElDora", amount: 01.99, date: DateTime.now()),
-    Transaction(
-        id: "id3", title: "Some wear", amount: 432.22, date: DateTime.now()),
-  ];
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  TextStyle style = TextStyle(
+      color: Colors.deepPurple[100], fontFamily: 'Montserrat', fontSize: 15);
 
   @override
   Widget build(BuildContext context) {
+    final login_field = TextField(
+      obscureText: false,
+      style: style,
+      decoration: InputDecoration(
+          hintText: 'Login',
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+    );
+    final password_field = TextField(
+      obscureText: true, //Hiding an input text
+      style: style,
+      decoration: InputDecoration(
+          hintText: 'Password',
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+    );
+
+    final enter_button = Material(
+      elevation: 5,
+      borderRadius: BorderRadius.circular(20),
+      color: Colors.blueGrey[300],
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        onPressed: () {}, //TODO: request
+        child: Text("Logiin",
+            textAlign: TextAlign.center,
+            style: style.copyWith(
+                color: Colors.blueGrey, fontWeight: FontWeight.bold)),
+      ),
+    );
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Playground"),
-        ),
-        body: Column(
+      body: Center(
+          child: Container(
+        padding: EdgeInsets.all(30),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.purple,
-                child: Text("Chart"),
-                elevation: 10,
-              ),
-            ),
-            Container(
-              child: Column(
-                  children: transactions.map((tx) {
-                return Card(
-                    child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                      child: Text('\$' + tx.amount.toString()),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                        color: Colors.black,
-                        width: 2,
-                      )),
-                      padding: EdgeInsets.all(5),
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text(tx.title),
-                        Text(tx.date.toString())
-                      ],
-                    )
-                  ],
-                ));
-              }).toList()),
-            )
+            SizedBox(height: 30),
+            login_field,
+            SizedBox(height: 30),
+            password_field,
+            SizedBox(height: 30),
+            enter_button,
           ],
-        ));
+        ),
+      )),
+    );
   }
 }
