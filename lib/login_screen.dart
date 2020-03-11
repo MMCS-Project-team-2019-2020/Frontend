@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './enter.dart';
 
 String loginInput;
 String passwordInput;
@@ -44,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       color: Colors.blueGrey[300],
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {}, //TODO: request
+        onPressed: () => log_in(loginInput, passwordInput), //TODO: request
         child: Text("Login",
             textAlign: TextAlign.center,
             style: style.copyWith(
