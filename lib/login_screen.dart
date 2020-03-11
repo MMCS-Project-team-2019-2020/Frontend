@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+String loginInput;
+String passwordInput;
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -11,19 +14,25 @@ class _LoginScreenState extends State<LoginScreen> {
       fontFamily: 'Montserrat',
       fontSize: 25,
       fontWeight: FontWeight.bold);
-
   @override
   Widget build(BuildContext context) {
-    final loginField = TextField(
+    final loginField = TextFormField(
       obscureText: false,
       style: style,
+      keyboardType: TextInputType.emailAddress,
+      onChanged: (value) {
+        loginInput = value;
+      },
       decoration: InputDecoration(
           hintText: 'Login',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
     );
-    final passwordField = TextField(
+    final passwordField = TextFormField(
       obscureText: true, //Hiding an input text
       style: style,
+      onChanged: (value) {
+        loginInput = value;
+      },
       decoration: InputDecoration(
           hintText: 'Password',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
