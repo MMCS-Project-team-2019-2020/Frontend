@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import './enter.dart';
 
-String loginInput;
-String passwordInput;
+String _loginInput;
+String _passwordInput;
+String passController = "You aren't even tried";
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,11 +11,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextStyle style = TextStyle(
+  final TextStyle style = TextStyle(
       color: Colors.lightBlueAccent,
       fontFamily: 'Montserrat',
       fontSize: 25,
       fontWeight: FontWeight.bold);
+
+  Future<void> chageController() async {
+    await logIn(_loginInput, _passwordInput).then((_) {
+      print("PassControler is $passController");
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final loginField = TextFormField(
@@ -22,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
       style: style,
       keyboardType: TextInputType.emailAddress,
       onChanged: (value) {
-        loginInput = value;
+        _loginInput = value;
       },
       decoration: InputDecoration(
           hintText: 'Login',
@@ -32,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       obscureText: true, //Hiding an input text
       style: style,
       onChanged: (value) {
-        loginInput = value;
+        _passwordInput = value;
       },
       decoration: InputDecoration(
           hintText: 'Password',
@@ -45,13 +54,17 @@ class _LoginScreenState extends State<LoginScreen> {
       color: Colors.blueGrey[300],
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () => log_in(loginInput, passwordInput), //TODO: request
+        onPressed: () {
+          print("Button pressed!");
+          chageController();
+        },
         child: Text("Login",
             textAlign: TextAlign.center,
             style: style.copyWith(
                 color: Colors.black, fontWeight: FontWeight.bold)),
       ),
     );
+
     return Scaffold(
       body: Center(
           child: Container(
@@ -60,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            Text("PassStatus:" + passController),
             SizedBox(height: 30),
             Column(children: <Widget>[
               loginField,

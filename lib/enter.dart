@@ -1,28 +1,24 @@
-import 'package:flutter/widgets.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import './login_screen.dart';
 
-void log_in(
+Future<void> logIn(
   String login,
   String password,
-) {
-  String request = "https://json.flutter.su/echo";
-
-  http.get(request).then((response) {
+) async {
+  String request = "http://www.vvd-rks.ru/proj/?action=login&login=" +
+      login +
+      "&password=" +
+      password;
+  print(request);
+  await http.get(request).then((response) {
     print("there!");
-    if (json.decode(response.body)['response'] == 1) {
-      Center(
-          child: Text(
-        "It works!",
-        style: TextStyle(fontSize: 24),
-      ));
+    if (json.decode(response.body)['response']['status'] == 1) {
+      print("Passed");
+      passController = "Passed";
     } else {
-      Center(
-          child: Text(
-        "It works!",
-        style: TextStyle(fontSize: 24),
-      ));
-      ;
+      print("Not passed");
+      passController = "Not passed";
     }
   });
 }
