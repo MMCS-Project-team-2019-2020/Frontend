@@ -15,10 +15,10 @@ Future<void> logIn(
     print("there!");
     if (json.decode(response.body)['response']['status'] == 1) {
       print("Passed");
-      passController = "Passed";
+      passController = true;
     } else {
       print("Not passed");
-      passController = "Not passed";
+      passController = false;
     }
   });
 }

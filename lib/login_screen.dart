@@ -3,7 +3,7 @@ import './enter.dart';
 
 String _loginInput;
 String _passwordInput;
-String passController = "You aren't even tried";
+bool passController = false; // Проверка аутентификации.
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -20,7 +20,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> chageController() async {
     await logIn(_loginInput, _passwordInput).then((_) {
       print("PassControler is $passController");
-      setState(() {});
+      if (passController) {
+        //TODO: Переход на экран профиля по условию passController. Если аутентификация прошла успешно - он true;
+      }
     });
   }
 
