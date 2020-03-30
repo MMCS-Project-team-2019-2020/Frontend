@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared/demo.dart';
 import './enter.dart';
 import 'package:shared/mainpage.dart';
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import './content/home.dart';
-import './content/account.dart';
-import './content/profile.dart';
-import './fluid_nav_bar.dart';
+import './Pages/home.dart';
+import './Pages/account.dart';
+import './Pages/profile.dart';
+import './Fluid/fluid_nav_bar.dart';
 
 class FluidNavBarDemo extends StatefulWidget {
   @override
