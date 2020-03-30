@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './enter.dart';
-import 'package:shared/mainpage.dart';
+import '../mainpage.dart';
 
 String _loginInput;
 String _passwordInput;
@@ -22,8 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await logIn(_loginInput, _passwordInput).then((_) {
       print("PassControler is $passController");
       if (passController) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => App()));
-        //TODO: Переход на экран профиля по условию passController. Если аутентификация прошла успешно - он true;
+        Navigator.push(context, MaterialPageRoute(builder: (context) => App()));
       }
     });
   }
@@ -59,7 +58,6 @@ class _LoginScreenState extends State<LoginScreen> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
-         
           print("Button pressed!");
           chageController();
         },
