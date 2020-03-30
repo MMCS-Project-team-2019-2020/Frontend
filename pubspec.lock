@@ -63,11 +63,7 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "0.1.3"
-=======
     version: "0.1.2"
->>>>>>> 2e4878470f48d4ffcde2c5853d50e85a5fb908ee
   flutter:
     dependency: "direct main"
     description: flutter
@@ -91,11 +87,7 @@ packages:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "3.1.3"
-=======
     version: "3.1.4"
->>>>>>> 2e4878470f48d4ffcde2c5853d50e85a5fb908ee
   image:
     dependency: transitive
     description:
