@@ -29,6 +29,7 @@
 .pub/
 /build/
 
+<<<<<<< HEAD
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
@@ -70,4 +71,10 @@
 !**/ios/**/default.mode2v3
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
+=======
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Exceptions to above rules.
+>>>>>>> 2e4878470f48d4ffcde2c5853d50e85a5fb908ee
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages

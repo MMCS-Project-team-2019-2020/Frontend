@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './enter.dart';
+import '../mainpage.dart';
 
 String _loginInput;
 String _passwordInput;
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await logIn(_loginInput, _passwordInput).then((_) {
       print("PassControler is $passController");
       if (passController) {
-        //TODO: Переход на экран профиля по условию passController. Если аутентификация прошла успешно - он true;
+        Navigator.push(context, MaterialPageRoute(builder: (context) => App()));
       }
     });
   }
@@ -75,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text("PassStatus:" + passController),
+            Text("PassStatus:" + passController.toString()),
             SizedBox(height: 30),
             Column(children: <Widget>[
               loginField,
