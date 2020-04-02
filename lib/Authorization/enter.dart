@@ -4,24 +4,31 @@ import 'package:http/http.dart' as http;
 import './login_screen.dart';
 
 class User {
-  int id;
+  String id;
   String name;
   String phone;
-  List<int> cards;
+  List<dynamic> cards;
 
-  User({this.id, this.name, this.phone, this.cards});
+  User({this.id = "", this.name = "", this.phone = "", this.cards});
+
+  void PrintUser() {
+    print(name);
+    print(id);
+    print(phone);
+    print(cards);
+  }
 }
 
-Future<User> getProfile(String login, User user_profile) async {
+Future<void> getProfile(String login, User user_profile) async {
   String request =
       "http://www.vvd-rks.ru/proj/?action=get-profile&login=$login";
   await http.get(request).then((response) {
-    var answer = json.decode(response.body)['response'];
-    user_profile = User(
-        id: int.parse((answer['id'])),
-        name: answer['name'],
-        phone: answer['phone'],
-        cards: answer[['own_cards'].map(int.parse).toList()]);
+    var answer = json.decode(response.body);
+    print("Answer is $answer");
+    user_profile.id = answer['response']['id'];
+    user_profile.name = answer['response']['name'];
+    user_profile.phone = answer['response']['phone'];
+    //user_profile.cards = answer['own_cards'];
   });
 }
 
