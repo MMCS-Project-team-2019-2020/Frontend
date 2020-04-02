@@ -10,22 +10,14 @@ class User {
   List<int> cards;
 
   User({this.id, this.name, this.phone, this.cards});
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-        id: int.parse(json['id']),
-        name: json['name'],
-        phone: json['phone'],
-        cards: json['own_cards'].map(int.parse).toList());
-  }
 }
 
-Future<User> getProfile(String login) async {
+Future<User> getProfile(String login, User user_profile) async {
   String request =
       "http://www.vvd-rks.ru/proj/?action=get-profile&login=$login";
   await http.get(request).then((response) {
     var answer = json.decode(response.body)['response'];
-    return User(
+    user_profile = User(
         id: int.parse((answer['id'])),
         name: answer['name'],
         phone: answer['phone'],
