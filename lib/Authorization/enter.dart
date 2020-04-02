@@ -1,6 +1,29 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import './login_screen.dart';
+
+class User {
+  int id;
+  String name;
+  String phone;
+  List<int> cards;
+
+  User({this.id, this.name, this.phone, this.cards});
+}
+
+Future<User> getProfile(String login, User user_profile) async {
+  String request =
+      "http://www.vvd-rks.ru/proj/?action=get-profile&login=$login";
+  await http.get(request).then((response) {
+    var answer = json.decode(response.body)['response'];
+    user_profile = User(
+        id: int.parse((answer['id'])),
+        name: answer['name'],
+        phone: answer['phone'],
+        cards: answer[['own_cards'].map(int.parse).toList()]);
+  });
+}
 
 Future<void> logIn(
   String login,
