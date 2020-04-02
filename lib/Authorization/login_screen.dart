@@ -3,6 +3,7 @@ import './enter.dart';
 import '../mainpage.dart';
 
 String _loginInput;
+String login = "";
 String _passwordInput;
 bool passController = false; // Проверка аутентификации.
 
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await logIn(_loginInput, _passwordInput).then((_) {
       print("PassControler is $passController");
       if (passController) {
+        login = _loginInput;
         Navigator.push(context, MaterialPageRoute(builder: (context) => App()));
       }
     });
