@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared/widgets/info_card.dart';
-import '../Authorization/enter.dart';
-import '../Authorization/login_screen.dart';
+import '../Authorization/enter.dart'; // taking the "get-profile" function from there
+import '../Authorization/login_screen.dart'; // taking login var from it.
 
 String url = 'http://vk.com/';
 String name = 'TestMail';
