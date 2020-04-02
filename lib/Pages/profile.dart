@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared/Pages/infocards.dart';
-import 'package:shared/widgets/info_card.dart';
 import '../Authorization/enter.dart';
-import '../Authorization/login_screen.dart';
 
 const url = 'http://vk.com/';
 const email = 'AkzhigitovRifat@gmail.com';
