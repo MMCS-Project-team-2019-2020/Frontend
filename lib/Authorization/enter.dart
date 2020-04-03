@@ -3,6 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import './login_screen.dart';
 
+class CardException implements Exception {
+  String message;
+  CardException(this.message) {
+    print("Raised exception with body $message");
+  }
+}
+
 class User {
   String id;
   String name;
@@ -76,7 +83,13 @@ Future<void> getProfile(String id_user, User user_profile) async {
 Future<void> getCard(String owner_id, String card_id, User user) async {
   String _request =
       "?http://vvd-rks.ru/proj/action=give-card&id_owner=$owner_id&id_recipient=$user.id&id_card=$card_id";
-  await http.get(_request);
+  await http.get(_request).then((response) {
+    var answer = json.decode(response.body);
+    if (answer['response']['status'] == 0) {
+      //  Если не получилось - вызывается исколючение
+      throw CardException(answer['response']['id']);
+    }
+  });
 }
 
 Future<void> getProfileFromCard(String card_id, User user) {}

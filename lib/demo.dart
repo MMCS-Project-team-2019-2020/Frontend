@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import './Pages/home.dart';
 import './Pages/account.dart';
+import './Pages/home.dart';
 import './Pages/profile.dart';
 import './Fluid/fluid_nav_bar.dart';
 
@@ -51,7 +50,8 @@ class _FluidNavBarDemoState extends State {
         switchInCurve: Curves.easeOut,
         switchOutCurve: Curves.easeIn,
         duration: Duration(milliseconds: 500),
-        child: _child,);
+        child: _child,
+      );
     });
   }
 }
