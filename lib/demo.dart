@@ -16,7 +16,7 @@ class _FluidNavBarDemoState extends State {
 
   @override
   void initState() {
-    _child = HomeContent();
+    _child = GridContent();
     super.initState();
   }
 

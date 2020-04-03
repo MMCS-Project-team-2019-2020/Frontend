@@ -15,7 +15,7 @@ Future<void> scanQR() async {
         getCard(_owner_id, _card_id, main_user).then((_) {
           getProfile(
               main_user.id, main_user); //  Обновление данных пользователя
-          //TODO: Прихуярить навигатор, пожалуйста.
+          //TODO: Прихуярить навигатор обратно на экран профиля или списка полученных визиток, пожалуйста.
         });
       } catch (CardException) {
         //Вывести "Не повезло, не фартануло"
