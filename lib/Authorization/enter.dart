@@ -11,7 +11,7 @@ class CardException implements Exception {
 }
 
 class User {
-  String id;
+  int id;
   String name;
   String phone;
   String surname;
@@ -20,8 +20,8 @@ class User {
   String position;
   String mail;
   String login;
-  String card_id;
-  List<String> own_cards;
+  int card_id;
+  List<int> own_cards;
 
   User({
     this.id = "",
