@@ -8,8 +8,8 @@ Future<void> scanQR() async {
   await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.QR)
       .then((result) {
-    String _owner_id = result.split(' ')[0];
-    String _card_id = result.split(' ')[1];
+    int _owner_id = result.split(' ')[0];
+    int _card_id = result.split(' ')[1];
     if (!main_user.own_cards.contains(_card_id)) {
       try {
         getCard(_owner_id, _card_id, main_user).then((_) {
