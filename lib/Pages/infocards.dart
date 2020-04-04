@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:shared/widgets/info_card.dart';
+import 'profile.dart';
 import '../Authorization/enter.dart'; // taking the "get-profile" function from there
-import '../Authorization/login_screen.dart'; // taking login var from it.
+import '../Authorization/login_screen.dart'; // taking user_id var from it.
 
-String url = 'http://vk.com/';
+String mail = "";
 String name = 'TestMail';
 String phone = '+7928-147-0-371';
 bool first_time = true;
-User user = new User();
 
 Future<void> filling() async {
-  await getProfile(login, user).then((_) {
-    name = user.name;
-    phone = user.phone;
+  await getProfile(user_id, main_user).then((_) {
+    name = main_user.name;
+    phone = main_user.phone;
+    mail = main_user.mail;
+    main_user.PrintUser();
+    //TODO: Рифат, доделай. Добавь выше поля, которые будут в инфокардах и присвой им соответствующие поля main_user.Все поля описаны в enter.dart
+    //P.S. Логин добавлять не надо, равно как и own_cards. card_id надо в QR запихнуть.
   });
 }
 
@@ -35,6 +39,7 @@ class _ICardsState extends State<ICards> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        //TODO: Рифат, доделай, добавь инфокард на все поля и скролл
         InfoCard(
           text: phone,
           icon: Icons.phone,

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shared/Pages/infocards.dart';
 import '../Authorization/enter.dart';
 
-const url = 'http://vk.com/';
-const email = 'AkzhigitovRifat@gmail.com';
-const phone = '+7928-147-0-371';
-User user;
+const url = "";
+const email = '';
+const phone = '';
+User main_user = new User();
 
 class GridContent extends StatelessWidget {
   @override
