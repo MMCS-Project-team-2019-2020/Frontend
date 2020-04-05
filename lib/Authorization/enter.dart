@@ -89,6 +89,17 @@ Future<void> getProfile(String id_user, User user_profile) async {
   });
 }
 
+//Создание карточки. Прикрутить к регистрации.
+Future<void> createCard(User user) async {
+  String user_id = user.id;
+  String card_name = "Визитка " + user.name;
+  String card_caption =
+      "Компания - " + user.company + ".\nДолжность - " + user.position;
+  String _request =
+      "$url?action=card-create&id_user=$user_id&card_name=$card_name&card_caption=$card_caption";
+  await http.get(_request);
+}
+
 // Получение карточки от пользователя. Используется для qr-scan.
 Future<void> getCard(String owner_id, String card_id, User user) async {
   String _request = "$url?action=give-card&id_owner=$owner_id&id_recipient=" +
