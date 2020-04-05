@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import './login_screen.dart';
 
@@ -66,23 +65,29 @@ Future<void> getProfile(String id_user, User user_profile) async {
     user_profile.position = answer['position'];
     user_profile.mail = answer['mail'];
     user_profile.login = answer['login'];
-    user_profile.card_id = answer['own_cards'];
-    request =
-        "http://vvd-rks.ru/proj/?action=get-list-card&id_user=$user_profile.card_id";
+    user_profile.card_id = answer['own_card'];
+    request = "http://vvd-rks.ru/proj/?action=get-list-card&id_user=" +
+        user_profile.id;
+    print(request);
+  }).then((_) async {
     await http.get(request).then((response) {
       // Ниже идёт запрос на получение списка визиток, доступных пользователю
-      answer = json.decode(response.body)['response'];
+      var answer = json.decode(response.body)['response'];
+      print("Answer for cards is $answer");
       if (answer['status'] == 1) {
         //Если у пользователя есть карточки
-        user_profile.own_cards = answer['cards'];
+        user_profile.own_cards = answer['cards'].cast<String>();
       }
+      user_profile.PrintUser();
     });
   });
 }
 
 Future<void> getCard(String owner_id, String card_id, User user) async {
   String _request =
-      "?http://vvd-rks.ru/proj/action=give-card&id_owner=$owner_id&id_recipient=$user.id&id_card=$card_id";
+      "http://vvd-rks.ru/proj/?action=give-card&id_owner=$owner_id&id_recipient=" +
+          user.id +
+          "&id_card=$card_id";
   await http.get(_request).then((response) {
     var answer = json.decode(response.body);
     if (answer['response']['status'] == 0) {
