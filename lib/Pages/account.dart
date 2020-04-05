@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'profile.dart';
 import '../Authorization/enter.dart';
 
-String _prof;
-String _id;
+List<User> user_list =
+    []; // Массив профилей, карточки которых есть у основного пользователя
+
+//Заполнение этого массива.
+void fillList() {
+  for (String id in main_user.own_cards) {
+    User contact = new User();
+    getProfileFromCard(id, contact).then((_) => contact.PrintUser());
+  }
+}
 
 class AccountContent extends StatelessWidget {
   @override
@@ -14,8 +22,7 @@ class AccountContent extends StatelessWidget {
         Text("Test for request!"),
         RaisedButton(
           onPressed: () {
-            getCard("1005", "10011", main_user);
-            getProfile(main_user.id, main_user);
+            fillList();
           },
           child: Text("Testing button!"),
         ),
