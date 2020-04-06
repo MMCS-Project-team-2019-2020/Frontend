@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:shared/Authorization/login_screen.dart';
 import 'package:shared/Pages/infocards.dart';
 import '../Authorization/enter.dart';
 
-const url = "";
-const email = '';
-const phone = '';
+import 'package:qr_flutter/qr_flutter.dart'; 
+
+
 User main_user = new User();
+String identity = user_id + '' + 'Должен быть card_id но почему-то он его не видит' ;
 
 class GridContent extends StatelessWidget {
-  @override
+@override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
+    return Container(
+      padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+      child: ListView.builder(
+        itemCount: 1,
+        itemBuilder: (content, index) {
+          return Container(
+            child: Column(
+              children: <Widget>[
+              Text(
           'Ваш Профиль',
           style: TextStyle(
             fontSize: 60.0,
@@ -37,6 +44,23 @@ class GridContent extends StatelessWidget {
           ),
         ),
         ICards(),
+        SizedBox(height: 45,),
+        QrImage( 
+          data: user_id, 
+          backgroundColor: Colors.white,
+          size: 300,
+        ),
+        SizedBox(height: 65,),
+            ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
 
         /*InfoCard(
               text: phone,
@@ -55,7 +79,4 @@ class GridContent extends StatelessWidget {
               icon: Icons.location_city,
             ),
            */
-      ],
-    );
-  }
-}
+   
