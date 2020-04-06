@@ -24,16 +24,19 @@ class UserButton extends StatelessWidget {
   UserButton(this.current_user);
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 10,
-      width: 80,
-      child: RaisedButton(
-        child: Text(current_user.surname + " " + current_user.name),
-        onPressed: () => current_user.PrintUser(),
-        padding: EdgeInsets.all(3.0),
-        color: Colors.grey,
-        focusColor: Colors.black45,
-        splashColor: Colors.grey,
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: SizedBox(
+        height: 75,
+        width: 150,
+        child: RaisedButton(
+          child: Text(current_user.surname + " " + current_user.name),
+          onPressed: () => current_user.PrintUser(),
+          padding: EdgeInsets.all(3.0),
+          color: Colors.grey,
+          focusColor: Colors.black45,
+          splashColor: Colors.grey,
+        ),
       ),
     );
   }
@@ -51,13 +54,12 @@ class _AccountContentState extends State<AccountContent> {
     print(user_list.length);
 
     return Center(
-        child: GridView.count(
-      crossAxisCount: 2,
-      primary: false,
-      padding: const EdgeInsets.all(20),
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      children: user_list.map((user) => UserButton(user)).toList(),
-    ));
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(50),
+        child: Column(
+          children: user_list.map((user) => UserButton(user)).toList(),
+        ),
+      ),
+    );
   }
 }
