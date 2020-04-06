@@ -41,12 +41,16 @@ class _ICardsState extends State<ICards> {
   @override
   Widget build(BuildContext context) {
     if (_first_time) {
-      filling(iCSUser).then((_) => fillList(user_list).then(
-            (_) {
+      filling(iCSUser).then(
+        (_) {
+          if (mounted) {
+            setState(() {
               _first_time = false;
-              setState(() {});
-            },
-          ));
+            });
+          }
+          fillList(user_list).then((_) => inProcess = false);
+        },
+      );
     }
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

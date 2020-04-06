@@ -4,6 +4,7 @@ import './login_screen.dart';
 
 //url хостинга бэкэнда.
 const url = "http://www.vvd-rks.ru/proj/";
+const url2 = "http://109.172.68.223/";
 
 //Специальная ошибка на случай, если что-то пошло не так при получении карты.
 //Например - сканировали не валидный QR
@@ -84,7 +85,7 @@ Future<void> getProfile(String id_user, User user_profile) async {
         //Если у пользователя есть карточки
         user_profile.own_cards = answer['cards'].cast<String>();
       }
-      user_profile.PrintUser();
+      //user_profile.PrintUser();
     });
   });
 }
