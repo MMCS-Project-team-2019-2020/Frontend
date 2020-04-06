@@ -7,7 +7,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 
 User main_user = new User();
-String identity = user_id + '' + 'Должен быть card_id но почему-то он его не видит' ;
+String identity = user_id + ' ' + main_user.card_id ;
 
 class GridContent extends StatelessWidget {
 @override
@@ -19,8 +19,9 @@ class GridContent extends StatelessWidget {
         itemBuilder: (content, index) {
           return Container(
             child: Column(
-              children: <Widget>[
-              Text(
+              children: <Widget>[        
+      SizedBox(height: 35,),
+      Text(
           'Ваш Профиль',
           style: TextStyle(
             fontSize: 60.0,

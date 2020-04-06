@@ -9,6 +9,7 @@ String surname = '';
 String mail = "";
 String name = 'TestMail';
 String phone = '+7928-147-0-371';
+
 bool first_time = true;
 
 Future<void> filling() async {
@@ -20,6 +21,7 @@ Future<void> filling() async {
     company = main_user.company;
     position = main_user.position;
     main_user.PrintUser();
+    
     //TODO: Рифат, доделай. Добавь выше поля, которые будут в инфокардах и присвой им соответствующие поля main_user.Все поля описаны в enter.dart
     //P.S. Логин добавлять не надо, равно как и own_cards. card_id надо в QR запихнуть.
   });
