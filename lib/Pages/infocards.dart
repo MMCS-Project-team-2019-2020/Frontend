@@ -1,45 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:shared/Pages/account.dart';
 import 'package:shared/widgets/info_card.dart';
 import 'profile.dart';
 import '../Authorization/enter.dart'; // taking the "get-profile" function from there
 import '../Authorization/login_screen.dart'; // taking user_id var from it.
-String company = ''; 
-String position = '';
-String surname = '';
-String mail = "";
-String name = 'TestMail';
-String phone = '+7928-147-0-371';
 
-bool first_time = true;
+String _company = '';
+String _position = '';
+String _surname = '';
+String _mail = "";
+String _name = '';
+String _phone = '';
+bool _first_time = true;
 
-Future<void> filling() async {
+Future<void> filling(User fill_user) async {
   await getProfile(user_id, main_user).then((_) {
-    name = main_user.name;
-    surname = main_user.surname;
-    phone = main_user.phone;
-    mail = main_user.mail;
-    company = main_user.company;
-    position = main_user.position;
-    main_user.PrintUser();
-    
-    //TODO: Рифат, доделай. Добавь выше поля, которые будут в инфокардах и присвой им соответствующие поля main_user.Все поля описаны в enter.dart
-    //P.S. Логин добавлять не надо, равно как и own_cards. card_id надо в QR запихнуть.
+    _name = fill_user.name;
+    _surname = fill_user.surname;
+    _phone = fill_user.phone;
+    _mail = fill_user.mail;
+    _company = fill_user.company;
+    _position = fill_user.position;
+    fill_user.PrintUser();
+
+    //TODO: Рифат, доделай. Добавь вы присвой им соответствующие поля main_user.Все поля описаны в enter.dart
+    //P.S. Логин добавлять не надо, равно как и own_cards. card_id надо в QR запихнуть.ше поля, которые будут в инфокардах и
   });
 }
 
 class ICards extends StatefulWidget {
+  final User iCUser;
+  ICards(this.iCUser);
   @override
-  _ICardsState createState() => _ICardsState();
+  _ICardsState createState() => _ICardsState(iCUser);
 }
 
 class _ICardsState extends State<ICards> {
+  User iCSUser;
+  _ICardsState(this.iCSUser);
   @override
   Widget build(BuildContext context) {
-    if (first_time) {
-      filling().then(
+    if (_first_time) {
+      filling(iCSUser).then(
         (_) {
-          first_time = false;
-          setState(() {});
+          if (mounted) {
+            setState(() {
+              _first_time = false;
+            });
+          }
+          fillList(user_list).then((_) => inProcess = false);
         },
       );
     }
@@ -48,31 +57,27 @@ class _ICardsState extends State<ICards> {
       children: <Widget>[
         //TODO: Рифат, доделай, добавь инфокард на все поля и скролл
         InfoCard(
-          text: phone,
+          text: _phone,
           icon: Icons.phone,
         ),
         InfoCard(
-          text: name,
+          text: _name,
           icon: Icons.account_circle,
         ),
         InfoCard(
-          text:surname, 
+          text: _surname,
           icon: Icons.account_circle,
         ),
         InfoCard(
-          text: mail,
+          text: _mail,
           icon: Icons.web,
         ),
         InfoCard(
-          text: 'Rostov-on-Don, Russia',
-          icon: Icons.location_city,
-        ),
-        InfoCard(
-          text: company, 
+          text: _company,
           icon: Icons.business,
         ),
         InfoCard(
-          text: position,
+          text: _position,
           icon: Icons.business_center,
         ),
       ],

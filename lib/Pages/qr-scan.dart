@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import '../Authorization/enter.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import './profile.dart';
@@ -8,8 +7,9 @@ Future<void> scanQR() async {
   await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.QR)
       .then((result) {
-    String _owner_id = result.split(' ')[0];
-    String _card_id = result.split(' ')[1];
+    var _ids = result.split(' ');
+    String _owner_id = _ids[0];
+    String _card_id = _ids[1];
     if (!main_user.own_cards.contains(_card_id)) {
       try {
         getCard(_owner_id, _card_id, main_user).then((_) {
