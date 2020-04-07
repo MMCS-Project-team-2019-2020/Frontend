@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
-import '../Authorization/enter.dart';
-import './profile.dart';
+import 'package:flutter/services.dart';
 
-class HomeContent extends StatefulWidget {
+class ScanScreen extends StatefulWidget {
   @override
-  _HomeContent createState() => _HomeContent();
+  _ScanState createState() => new _ScanState();
 }
 
-class _HomeContent extends State<HomeContent> {
+class _ScanState extends State<ScanScreen> {
   String barcode = "";
 
   @override
@@ -20,44 +19,52 @@ class _HomeContent extends State<HomeContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: RaisedButton(
-                onPressed: () => scanQR(),
-                child: Text(
-                  "Сканировать QR",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-                color: Colors.green,
-              ),
-              padding: const EdgeInsets.all(10.0),
-              margin: EdgeInsets.all(10),
-            ),
-          ],
+        appBar: new AppBar(
+          title: new Text('QR Code Scanner'),
         ),
-      ),
-    );
+        body: new Center(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: RaisedButton(
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    splashColor: Colors.blueGrey,
+                    onPressed: scan,
+                    child: const Text('START CAMERA SCAN')),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Text(
+                  barcode,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 
-  //scan barcode asynchronously
-  String result = "";
-  Future scanQR() async {
+  Future scan() async {
     try {
       String barcode = await BarcodeScanner.scan();
-      var result = barcode.split(" ");
-      String _owner_id = result[0];
-      String _card_id = result[0];
-      if (!main_user.own_cards.contains(_card_id)) {
-        getCard(_owner_id, _card_id, main_user).then((_) {
-          getProfile(
-              main_user.id, main_user); //  Обновление данных пользователя
+      setState(() => this.barcode = barcode);
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        setState(() {
+          this.barcode = 'The user did not grant the camera permission!';
         });
+      } else {
+        setState(() => this.barcode = 'Unknown error: $e');
       }
+    } on FormatException {
+      setState(() => this.barcode =
+          'null (User returned using the "back"-button before scanning anything. Result)');
     } catch (e) {
-      print(e.toString());
+      setState(() => this.barcode = 'Unknown error: $e');
     }
   }
 }

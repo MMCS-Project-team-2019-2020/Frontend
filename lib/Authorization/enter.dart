@@ -106,6 +106,7 @@ Future<void> getCard(String owner_id, String card_id, User user) async {
   String _request = "$url?action=give-card&id_owner=$owner_id&id_recipient=" +
       user.id +
       "&id_card=$card_id";
+  print("Adding card");
   await http.get(_request).then((response) {
     var answer = json.decode(response.body);
     if (answer['response']['status'] == 0) {
