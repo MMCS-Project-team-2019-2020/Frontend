@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared/Authorization/registry.dart';
 import './login_screen.dart';
 
 //url хостинга бэкэнда.
@@ -131,6 +132,29 @@ Future<void> getProfileFromCard(String card_id, User user) async {
       print("___" * 10);
     },
   );
+}
+
+//Функция проверки того, есть ли такой логин в БД
+Future<void> checkLogin(String login) async {
+  String request = url + "?action=check-login&login=$login";
+  await http.get(request).then((response) {
+    loginExist = (json.decode(response.body)["response"]["status"] == 0);
+  });
+}
+
+Future<void> registry(
+    String _name,
+    String _surname,
+    String _patronymic,
+    String _company,
+    String _position,
+    String _mail,
+    String _phone,
+    String _login,
+    String _password) {
+  String request = url +
+      "?action=register&name=$_name&surname=$_surname&patronymic=$_patronymic&company=$_company&position=$_position&mail=$_mail&phone=$_phone&login=$_login&password=$_password";
+  http.get(request).then((_) => logIn(_login, _password));
 }
 
 //Функция входа в систему.
