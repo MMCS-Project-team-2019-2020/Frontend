@@ -31,16 +31,16 @@ class User {
 
   //Конструктор класса. Все поля пусты изначально.
   User({
-    this.id = "",
-    this.name = "",
-    this.phone = "",
-    this.surname = "",
-    this.patronymic = "",
-    this.company = "",
-    this.position = "",
-    this.mail = "",
-    this.login = "",
-    this.card_id = "",
+    this.id = " ",
+    this.name = " ",
+    this.phone = " ",
+    this.surname = " ",
+    this.patronymic = " ",
+    this.company = " ",
+    this.position = " ",
+    this.mail = " ",
+    this.login = " ",
+    this.card_id = " ",
     this.own_cards = const [""],
   });
 
@@ -92,11 +92,10 @@ Future<void> getProfile(String id_user, User user_profile) async {
 }
 
 //Создание карточки. Прикрутить к регистрации.
-Future<void> createCard(User user) async {
-  String user_id = user.id;
-  String card_name = "Визитка " + user.name;
-  String card_caption =
-      "Компания - " + user.company + ".\nДолжность - " + user.position;
+Future<void> createCard(
+    String user_id, String name, String company, String position) async {
+  String card_name = "Визитка " + name;
+  String card_caption = "Компания - " + company + ".\nДолжность - " + position;
   String _request =
       "$url?action=card-create&id_user=$user_id&card_name=$card_name&card_caption=$card_caption";
   await http.get(_request);
@@ -158,11 +157,12 @@ Future<void> registry(
   print(request);
   http.get(request).then((_) {
     print("Logging in with $_login and $_password");
-    logIn(_login, _password).then((_) => print("Finished my logging"));
+    logIn(_login, _password)
+        .then((_) => createCard(user_id, _name, _company, _position));
   });
 }
 
-//Функция входа в систему.
+//Функция вход в систему.
 Future<void> logIn(
   String _login,
   String _password,

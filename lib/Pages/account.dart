@@ -9,14 +9,16 @@ List<User> user_list = [];
 bool inProcess = true;
 //Заполнение этого массива.
 Future<void> fillList(List<User> list) async {
-  for (String id in main_user.own_cards) {
-    User contact = new User();
-    await getProfileFromCard(id, contact).then(
-      (_) {
-        //contact.PrintUser();
-        list.add(contact);
-      },
-    );
+  if (list.length != 0) {
+    for (String id in main_user.own_cards) {
+      User contact = new User();
+      await getProfileFromCard(id, contact).then(
+        (_) {
+          //contact.PrintUser();
+          list.add(contact);
+        },
+      );
+    }
   }
 }
 

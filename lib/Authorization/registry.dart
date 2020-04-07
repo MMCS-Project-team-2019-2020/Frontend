@@ -184,7 +184,7 @@ class _RegistryState extends State<Registry> {
           Text("Место работы:"),
           TextFormField(
             style: style,
-            keyboardType: TextInputType.phone,
+            keyboardType: TextInputType.emailAddress,
             onChanged: (value) {
               _company = value;
             },
