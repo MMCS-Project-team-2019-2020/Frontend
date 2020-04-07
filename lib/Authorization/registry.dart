@@ -279,6 +279,7 @@ class _RegistryState extends State<Registry> {
         child: Column(children: [
           _loginAndPasswordField,
           _nSPField,
+          _phoneAndEmail,
           _companyAndPosition,
           _buttons
         ]),

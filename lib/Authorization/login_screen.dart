@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './enter.dart';
 import '../mainpage.dart';
+import './registry.dart';
 
 String _loginInput;
 String user_id;
@@ -52,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
     );
 
-    final enterButton = Material(
+    final _enterButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
       color: Colors.blueGrey[300],
@@ -61,6 +62,23 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           print("Button pressed!");
           chageController();
+        },
+        child: Text("Login",
+            textAlign: TextAlign.center,
+            style: style.copyWith(
+                color: Colors.black, fontWeight: FontWeight.bold)),
+      ),
+    );
+    final _registry = Material(
+      elevation: 5,
+      borderRadius: BorderRadius.circular(20),
+      color: Colors.blueGrey[300],
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        onPressed: () {
+          print("Switched to registry");
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Registry()));
         },
         child: Text("Login",
             textAlign: TextAlign.center,
@@ -84,7 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 30),
               passwordField
             ]),
-            enterButton,
+            _enterButton,
+            _registry,
           ],
         ),
       )),
