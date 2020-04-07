@@ -14,15 +14,8 @@ String _login = "";
 String _password = "";
 bool loginExist = false;
 bool _passwordCheck = true;
-bool allFieldsNotNull = _name != "" &&
-    _surname != "" &&
-    _patronymic != "" &&
-    _company != "" &&
-    _position != "" &&
-    _mail != "" &&
-    _mail.contains('@') &&
-    _phone != "";
-bool _buttonEnabled = !loginExist && _passwordCheck && allFieldsNotNull;
+
+//bool _buttonEnabled = !loginExist && _passwordCheck && allFieldsNotNull;
 
 class Registry extends StatefulWidget {
   @override
@@ -216,21 +209,34 @@ class _RegistryState extends State<Registry> {
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           print("Trying to register...");
-          checkLogin(_login).then(
-            (_) {
-              print("Login checked! Login exist is $loginExist");
-              _passwordCheck = _password.length > 4;
-              if (_passwordCheck && !loginExist) {
-                registry(_name, _surname, _patronymic, _company, _position,
-                    _mail, _phone, _login, _password);
-              } else
-                setState(() {});
-            },
-          ).then((_) {
-            if (passController)
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => App()));
-          });
+          bool allFieldsNotNull = _name != "" &&
+              _surname != "" &&
+              _patronymic != "" &&
+              _company != "" &&
+              _position != "" &&
+              _mail != "" &&
+              _mail.contains('@') &&
+              _phone != "" &&
+              _login != "";
+          if (allFieldsNotNull) {
+            checkLogin(_login).then(
+              (_) {
+                print("Login checked! Login exist is $loginExist");
+                _passwordCheck = _password.length > 4;
+                if (_passwordCheck && !loginExist) {
+                  registry(_name, _surname, _patronymic, _company, _position,
+                      _mail, _phone, _login, _password);
+                } else
+                  setState(() {});
+              },
+            ).then((_) {
+              if (passController)
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => App()));
+            });
+          } else {
+            print("Не вышло, поля не заполнены");
+          }
         },
         child: Text("Зарегестрироваться",
             textAlign: TextAlign.center,
