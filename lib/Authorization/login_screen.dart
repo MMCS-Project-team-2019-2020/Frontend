@@ -29,6 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  void goToReg() => Navigator.push(
+      context, MaterialPageRoute(builder: (context) => Registry()));
   @override
   Widget build(BuildContext context) {
     final loginField = TextFormField(
@@ -63,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
           print("Button pressed!");
           chageController();
         },
-        child: Text("Login",
+        child: Text("Войти",
             textAlign: TextAlign.center,
             style: style.copyWith(
                 color: Colors.black, fontWeight: FontWeight.bold)),
@@ -77,10 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           print("Switched to registry");
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Registry()));
+          goToReg();
         },
-        child: Text("Login",
+        child: Text("Регистрация",
             textAlign: TextAlign.center,
             style: style.copyWith(
                 color: Colors.black, fontWeight: FontWeight.bold)),

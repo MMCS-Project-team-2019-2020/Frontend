@@ -138,7 +138,7 @@ Future<void> getProfileFromCard(String card_id, User user) async {
 Future<void> checkLogin(String login) async {
   String request = url + "?action=check-login&login=$login";
   await http.get(request).then((response) {
-    loginExist = (json.decode(response.body)["response"]["status"] == 0);
+    loginExist = (json.decode(response.body)["response"]["status"] == 1);
   });
 }
 
@@ -152,9 +152,14 @@ Future<void> registry(
     String _phone,
     String _login,
     String _password) {
+  print("Trying to reg...");
   String request = url +
       "?action=register&name=$_name&surname=$_surname&patronymic=$_patronymic&company=$_company&position=$_position&mail=$_mail&phone=$_phone&login=$_login&password=$_password";
-  http.get(request).then((_) => logIn(_login, _password));
+  print(request);
+  http.get(request).then((_) {
+    print("Logging in with $_login and $_password");
+    logIn(_login, _password).then((_) => print("Finished my logging"));
+  });
 }
 
 //Функция входа в систему.

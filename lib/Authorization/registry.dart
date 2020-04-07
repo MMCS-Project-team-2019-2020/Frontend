@@ -3,15 +3,15 @@ import 'package:shared/Authorization/login_screen.dart';
 import './enter.dart';
 import '../mainpage.dart';
 
-String _name;
-String _surname;
-String _patronymic;
-String _company;
-String _position;
-String _mail;
-String _phone;
-String _login;
-String _password;
+String _name = "";
+String _surname = "";
+String _patronymic = "";
+String _company = "";
+String _position = "";
+String _mail = "";
+String _phone = "";
+String _login = "";
+String _password = "";
 bool loginExist = false;
 bool _passwordCheck = true;
 bool allFieldsNotNull = _name != "" &&
@@ -37,196 +37,175 @@ class _RegistryState extends State<Registry> {
       fontWeight: FontWeight.bold);
 
   @override
+  void initState() => super.initState();
   Widget build(BuildContext context) {
-    final _loginField = Column(
-      children: [
-        Text("Логин пользователя:"),
-        TextFormField(
-          style: style,
-          keyboardType: TextInputType.emailAddress,
-          onChanged: (value) {
-            _login = value;
-          },
-          onSaved: (value) {
-            if (value != "")
-              checkLogin(value.toLowerCase()).then((_) => setState(() {}));
-          },
-          decoration: InputDecoration(
-              hintText: 'Login',
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
-        ),
-        loginExist
-            ? Text("Такой логин уже существует!",
-                style: TextStyle(color: Colors.redAccent[700], fontSize: 22))
-            : _login != ""
-                ? Text("Логин не занят",
-                    style: TextStyle(color: Colors.greenAccent, fontSize: 15))
-                : Padding(padding: null),
-      ],
-    );
-
-    final _passwordField = Column(
-      children: [
-        _passwordCheck
-            ? Text("Пароль:")
-            : Text("Пароль должен содержать больше 5 символов!",
-                style: TextStyle(color: Colors.redAccent[700], fontSize: 22)),
-        TextFormField(
-          style: style,
-          keyboardType: TextInputType.emailAddress,
-          onChanged: (value) {
-            _password = value;
-          },
-          onSaved: (value) {
-            _passwordCheck = value.length > 4;
-            setState(() {});
-          },
-          decoration: InputDecoration(
-              hintText: 'Password',
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
-        ),
-      ],
-    );
-
-    final _nSPField = Row(
-      children: [
-        Column(
+    final _loginField = Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
           children: [
-            Text("Фамилия:"),
+            Text("Логин пользователя:"),
             TextFormField(
               style: style,
               keyboardType: TextInputType.emailAddress,
               onChanged: (value) {
-                _surname = value;
+                _login = value;
+              },
+              onSaved: (value) {
+                if (value != "")
+                  checkLogin(value.toLowerCase()).then((_) => setState(() {}));
               },
               decoration: InputDecoration(
-                  hintText: 'Фамилия',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
+                  hintText: 'Login',
+                  border: OutlineInputBorder(gapPadding: 10)),
             ),
+            loginExist
+                ? Text("Такой логин уже существует!",
+                    style:
+                        TextStyle(color: Colors.redAccent[700], fontSize: 22))
+                : _login != ""
+                    ? Text("Логин не занят",
+                        style:
+                            TextStyle(color: Colors.greenAccent, fontSize: 15))
+                    : Padding(padding: EdgeInsets.all(0)),
           ],
-        ),
-        Padding(padding: EdgeInsets.all(10)),
-        Column(
+        ));
+
+    final _passwordField = Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
           children: [
-            Text("Имя:"),
+            _passwordCheck
+                ? Text("Пароль:")
+                : Text("Пароль должен содержать больше 4 символов!",
+                    style:
+                        TextStyle(color: Colors.redAccent[700], fontSize: 22)),
             TextFormField(
               style: style,
               keyboardType: TextInputType.emailAddress,
               onChanged: (value) {
-                _name = value;
+                _password = value;
+              },
+              onSaved: (value) {
+                setState(() {});
               },
               decoration: InputDecoration(
-                  hintText: 'Имя',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
+                  hintText: 'Password',
+                  border: OutlineInputBorder(gapPadding: 10)),
             ),
           ],
-        ),
-        Padding(padding: EdgeInsets.all(10)),
-        Column(
-          children: [
-            Text("Отчество:"),
-            TextFormField(
-              style: style,
-              keyboardType: TextInputType.emailAddress,
-              onChanged: (value) {
-                _patronymic = value;
-              },
-              decoration: InputDecoration(
-                  hintText: 'Отчество',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
-            ),
-          ],
-        ),
-      ],
+        ));
+
+    final _nSPField = Container(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Text("Фамилия:"),
+          TextFormField(
+            style: style,
+            keyboardType: TextInputType.emailAddress,
+            onChanged: (value) {
+              _surname = value;
+            },
+            decoration: InputDecoration(
+                hintText: 'Фамилия',
+                border: OutlineInputBorder(gapPadding: 10)),
+          ),
+          Padding(padding: EdgeInsets.all(10)),
+          Text("Имя:"),
+          TextFormField(
+            style: style,
+            keyboardType: TextInputType.emailAddress,
+            onChanged: (value) {
+              _name = value;
+            },
+            decoration: InputDecoration(
+                hintText: 'Имя', border: OutlineInputBorder(gapPadding: 10)),
+          ),
+          Padding(padding: EdgeInsets.all(10)),
+          Text("Отчество:"),
+          TextFormField(
+            style: style,
+            keyboardType: TextInputType.emailAddress,
+            onChanged: (value) {
+              _patronymic = value;
+            },
+            decoration: InputDecoration(
+                hintText: 'Отчество',
+                border: OutlineInputBorder(gapPadding: 10)),
+          ),
+        ],
+      ),
     );
 
-    final _loginAndPasswordField = Row(
+    final _loginAndPasswordField = Column(
       children: [
         _loginField,
         Padding(padding: EdgeInsets.all(10)),
-        _passwordField
+        _passwordField,
       ],
     );
 
-    final _phoneAndEmail = Row(
-      children: [
-        Column(
-          children: [
-            Text("Номер телефона:"),
-            TextFormField(
-              style: style,
-              keyboardType: TextInputType.phone,
-              onChanged: (value) {
-                _phone = value;
-              },
-              decoration: InputDecoration(
-                  hintText: '+7-000-000-00-00',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
+    final _phoneAndEmail = Container(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Text("Номер телефона:"),
+          TextFormField(
+            style: style,
+            keyboardType: TextInputType.phone,
+            onChanged: (value) {
+              _phone = value;
+            },
+            decoration: InputDecoration(
+              hintText: '+7-000-000-00-00',
+              border: OutlineInputBorder(gapPadding: 10),
             ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(10)),
-        Column(
-          children: [
-            Text("E-mail:"),
-            TextFormField(
-              style: style,
-              keyboardType: TextInputType.emailAddress,
-              onChanged: (value) {
-                _mail = value;
-              },
-              decoration: InputDecoration(
-                  hintText: 'example@exmaple.com',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
-            ),
-          ],
-        ),
-      ],
+          ),
+          Padding(padding: EdgeInsets.all(10)),
+          Text("E-mail:"),
+          TextFormField(
+            style: style,
+            keyboardType: TextInputType.emailAddress,
+            onChanged: (value) {
+              _mail = value;
+            },
+            decoration: InputDecoration(
+                hintText: 'example@exmaple.com',
+                border: OutlineInputBorder(gapPadding: 10)),
+          ),
+        ],
+      ),
     );
 
-    final _companyAndPosition = Row(
-      children: [
-        Column(
-          children: [
-            Text("Место работы:"),
-            TextFormField(
-              style: style,
-              keyboardType: TextInputType.phone,
-              onChanged: (value) {
-                _phone = value;
-              },
-              decoration: InputDecoration(
-                  hintText: 'Место работы',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
-            ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(10)),
-        Column(
-          children: [
-            Text("Должность:"),
-            TextFormField(
-              style: style,
-              keyboardType: TextInputType.emailAddress,
-              onChanged: (value) {
-                _mail = value;
-              },
-              decoration: InputDecoration(
-                  hintText: 'Должность',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
-            ),
-          ],
-        ),
-      ],
+    final _companyAndPosition = Container(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Text("Место работы:"),
+          TextFormField(
+            style: style,
+            keyboardType: TextInputType.phone,
+            onChanged: (value) {
+              _company = value;
+            },
+            decoration: InputDecoration(
+                hintText: 'Место работы',
+                border: OutlineInputBorder(gapPadding: 10)),
+          ),
+          Padding(padding: EdgeInsets.all(10)),
+          Text("Должность:"),
+          TextFormField(
+            style: style,
+            keyboardType: TextInputType.emailAddress,
+            onChanged: (value) {
+              _position = value;
+            },
+            decoration: InputDecoration(
+                hintText: 'Должность',
+                border: OutlineInputBorder(gapPadding: 10)),
+          ),
+        ],
+      ),
     );
 
     final _register = Material(
@@ -237,10 +216,21 @@ class _RegistryState extends State<Registry> {
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           print("Trying to register...");
-          registry(_name, _surname, _patronymic, _company, _position, _mail,
-                  _phone, _login, _password)
-              .then((_) => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => App())));
+          checkLogin(_login).then(
+            (_) {
+              print("Login checked! Login exist is $loginExist");
+              _passwordCheck = _password.length > 4;
+              if (_passwordCheck && !loginExist) {
+                registry(_name, _surname, _patronymic, _company, _position,
+                    _mail, _phone, _login, _password);
+              } else
+                setState(() {});
+            },
+          ).then((_) {
+            if (passController)
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => App()));
+          });
         },
         child: Text("Зарегестрироваться",
             textAlign: TextAlign.center,
@@ -254,21 +244,19 @@ class _RegistryState extends State<Registry> {
       color: Colors.blueGrey[300],
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: _buttonEnabled
-            ? () {
-                print("Trying to register...");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
-              }
-            : null,
+        onPressed: () {
+          print("Fuck, go back!");
+          Navigator.pop(context);
+          /* Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));*/
+        },
         child: Text("Отмена",
             textAlign: TextAlign.center,
             style: style.copyWith(
                 color: Colors.black, fontWeight: FontWeight.bold)),
       ),
     );
-
-    final _buttons = Row(
+    final _buttons = Column(
       children: [_register, Padding(padding: EdgeInsets.all(10)), _cancel],
     );
 
@@ -281,7 +269,7 @@ class _RegistryState extends State<Registry> {
           _nSPField,
           _phoneAndEmail,
           _companyAndPosition,
-          _buttons
+          _buttons,
         ]),
       ),
     ));
