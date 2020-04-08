@@ -23,8 +23,7 @@ Future<void> filling(User fill_user) async {
     _position = fill_user.position;
     fill_user.PrintUser();
 
-    //TODO: Рифат, доделай. Добавь вы присвой им соответствующие поля main_user.Все поля описаны в enter.dart
-    //P.S. Логин добавлять не надо, равно как и own_cards. card_id надо в QR запихнуть.ше поля, которые будут в инфокардах и
+    
   });
 }
 
@@ -55,7 +54,7 @@ class _ICardsState extends State<ICards> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        //TODO: Рифат, доделай, добавь инфокард на все поля и скролл
+        
         InfoCard(
           text: _phone,
           icon: Icons.phone,
