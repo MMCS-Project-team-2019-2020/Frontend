@@ -2,6 +2,15 @@ import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared/Authorization/enter.dart';
+import 'package:shared/Pages/infocards.dart';
+import 'profile.dart';
+import 'account.dart';
+
+String card_result = "";
+String ownerID;
+String cardID;
+bool _isCard = false;
 
 class ScanScreen extends StatefulWidget {
   @override
@@ -10,6 +19,8 @@ class ScanScreen extends StatefulWidget {
 
 class _ScanState extends State<ScanScreen> {
   String barcode = "";
+  String scan_card = "";
+  bool ohWait = false;
 
   @override
   initState() {
@@ -23,34 +34,112 @@ class _ScanState extends State<ScanScreen> {
           title: new Text('QR Code Scanner'),
         ),
         body: new Center(
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: RaisedButton(
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    splashColor: Colors.blueGrey,
-                    onPressed: scan,
-                    child: const Text('START CAMERA SCAN')),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text(
-                  barcode,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-        ));
+            child: ohWait
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Идёт обработка данных..."),
+                      CircularProgressIndicator(
+                        backgroundColor: Colors.grey,
+                      ),
+                    ],
+                  )
+                : new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: !_isCard
+                        ? [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 8.0),
+                              child: RaisedButton(
+                                  color: Colors.blue,
+                                  textColor: Colors.white,
+                                  splashColor: Colors.blueGrey,
+                                  onPressed: scan,
+                                  child: const Text('START CAMERA SCAN')),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 8.0),
+                              child: Text(
+                                barcode,
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          ]
+                        : [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 8.0),
+                              child: Text(
+                                card_result,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 8.0),
+                              child: RaisedButton(
+                                  color: Colors.blue,
+                                  textColor: Colors.white,
+                                  splashColor: Colors.blueGrey,
+                                  onPressed: Accept,
+                                  child: const Text('Accept')),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 8.0),
+                              child: RaisedButton(
+                                  color: Colors.blue,
+                                  textColor: Colors.white,
+                                  splashColor: Colors.blueGrey,
+                                  onPressed: () => setState(() {
+                                        _isCard = false;
+                                        card_result = "error";
+                                      }),
+                                  child: const Text("Decline")),
+                            ),
+                          ])));
+  }
+
+  Future<void> Accept() async {
+    try {
+      print("Accepting...");
+      print(ownerID);
+      await getCardToUser(ownerID, cardID, main_user).then((_) {
+        inProcess = true;
+        print("Filling...");
+        user_list = [];
+        setState(() {
+          _isCard = false;
+          barcode = "";
+        });
+        filling(main_user)
+            .then((_) => fillList(user_list).then((_) => inProcess = false));
+      });
+    } catch (e) {
+      print(e);
+      setState(() {
+        _isCard = false;
+        barcode = "Ошибка во время считывания карты";
+      });
+    }
   }
 
   Future scan() async {
     try {
       String barcode = await BarcodeScanner.scan();
+      print("barcode is $barcode");
+      getCard(barcode).then((_) {
+        if (card_result != "error" && card_result != "") {
+          _isCard = true;
+          ohWait = false;
+          setState(() {});
+        }
+      });
+      ohWait = true;
       setState(() => this.barcode = barcode);
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {

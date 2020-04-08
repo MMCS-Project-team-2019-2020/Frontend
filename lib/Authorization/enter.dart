@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared/Authorization/registry.dart';
+import 'package:shared/Pages/home.dart';
 import './login_screen.dart';
 
 //url хостинга бэкэнда.
@@ -41,7 +42,7 @@ class User {
     this.mail = " ",
     this.login = " ",
     this.card_id = " ",
-    this.own_cards = const [""],
+    this.own_cards = const [],
   });
 
   //Вывод всех полей пользователя. Нужен для дебага, вывод идёт в консоль.
@@ -57,6 +58,7 @@ class User {
     print("$login login is $login");
     print("$login card_id is $card_id");
     print("$login own cards are " + own_cards.toString());
+    print("owncards size is " + own_cards.isEmpty.toString());
   }
 }
 
@@ -92,23 +94,40 @@ Future<void> getProfile(String id_user, User user_profile) async {
 }
 
 //Создание карточки. Прикрутить к регистрации.
-Future<void> createCard(
-    String user_id, String name, String company, String position) async {
-  String card_name = "Визитка " + name;
+Future<void> createCard(String user_id, String surname, String name,
+    String company, String position) async {
+  String card_name = surname + " " + name;
   String card_caption = "Компания - " + company + ".\nДолжность - " + position;
   String _request =
       "$url?action=card-create&id_user=$user_id&card_name=$card_name&card_caption=$card_caption";
   await http.get(_request);
 }
 
+Future<void> getCard(String card_id) async {
+  print("getting card");
+  String _request = url + "?action=get-card&id_card=" + card_id;
+  await http.get(_request).then((response) {
+    var answer = json.decode(response.body)["response"];
+    if (answer.containsKey("error")) {
+      card_result = "error";
+    } else {
+      print("getCard answer if $answer");
+      card_result = answer["name"] + "\n" + answer["caption"];
+      ownerID = answer["owner_id"];
+      cardID = answer["id"];
+    }
+  });
+}
+
 // Получение карточки от пользователя. Используется для qr-scan.
-Future<void> getCard(String owner_id, String card_id, User user) async {
+Future<void> getCardToUser(String owner_id, String card_id, User user) async {
   String _request = "$url?action=give-card&id_owner=$owner_id&id_recipient=" +
       user.id +
       "&id_card=$card_id";
-  print("Adding card");
+  print("Adding card with request \n $_request");
   await http.get(_request).then((response) {
     var answer = json.decode(response.body);
+    print(answer);
     if (answer['response']['status'] == 0) {
       //  Если не получилось - вызывается исколючение
       throw CardException(answer['response']['id']);
@@ -159,7 +178,7 @@ Future<void> registry(
   http.get(request).then((_) {
     print("Logging in with $_login and $_password");
     logIn(_login, _password)
-        .then((_) => createCard(user_id, _name, _company, _position));
+        .then((_) => createCard(user_id, _surname, _name, _company, _position));
   });
 }
 

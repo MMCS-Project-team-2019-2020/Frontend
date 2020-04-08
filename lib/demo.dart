@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared/Pages/qr-scan.dart';
 import './Pages/account.dart';
 import './Pages/home.dart';
 import './Pages/profile.dart';

@@ -24,7 +24,7 @@ Future<void> filling(User fill_user) async {
     _company = fill_user.company;
     _position = fill_user.position;
     fill_user.PrintUser();
-    identity = main_user.id + ' ' + main_user.card_id;
+    identity = main_user.card_id;
     print(identity);
 
     //TODO: Рифат, доделай. Добавь вы присвой им соответствующие поля main_user.Все поля описаны в enter.dart
