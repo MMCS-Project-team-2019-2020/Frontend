@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared/Pages/account.dart';
 import 'package:shared/widgets/info_card.dart';
 import 'profile.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import '../Authorization/enter.dart'; // taking the "get-profile" function from there
 import '../Authorization/login_screen.dart'; // taking user_id var from it.
 
@@ -11,6 +12,7 @@ String _surname = '';
 String _mail = "";
 String _name = '';
 String _phone = '';
+String identity = '';
 bool _first_time = true;
 
 Future<void> filling(User fill_user) async {
@@ -22,6 +24,11 @@ Future<void> filling(User fill_user) async {
     _company = fill_user.company;
     _position = fill_user.position;
     fill_user.PrintUser();
+    identity = main_user.card_id;
+    print(identity);
+
+    //TODO: Рифат, доделай. Добавь вы присвой им соответствующие поля main_user.Все поля описаны в enter.dart
+    //P.S. Логин добавлять не надо, равно как и own_cards. card_id надо в QR запихнуть.ше поля, которые будут в инфокардах и
   });
 }
 
@@ -75,6 +82,14 @@ class _ICardsState extends State<ICards> {
         InfoCard(
           text: _position,
           icon: Icons.business_center,
+        ),
+        SizedBox(
+          height: 45,
+        ),
+        QrImage(
+          data: identity,
+          backgroundColor: Colors.white,
+          size: 300,
         ),
       ],
     );

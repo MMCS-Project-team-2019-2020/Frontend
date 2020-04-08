@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared/Authorization/registry.dart';
+import 'package:shared/Pages/home.dart';
 import './login_screen.dart';
+import 'registry.dart';
 
 //url хостинга бэкэнда.
 const url = "http://www.vvd-rks.ru/proj/";
@@ -30,17 +33,17 @@ class User {
 
   //Конструктор класса. Все поля пусты изначально.
   User({
-    this.id = "",
-    this.name = "",
-    this.phone = "",
-    this.surname = "",
-    this.patronymic = "",
-    this.company = "",
-    this.position = "",
-    this.mail = "",
-    this.login = "",
-    this.card_id = "",
-    this.own_cards = const [""],
+    this.id = " ",
+    this.name = " ",
+    this.phone = " ",
+    this.surname = " ",
+    this.patronymic = " ",
+    this.company = " ",
+    this.position = " ",
+    this.mail = " ",
+    this.login = " ",
+    this.card_id = " ",
+    this.own_cards = const [],
   });
 
   //Вывод всех полей пользователя. Нужен для дебага, вывод идёт в консоль.
@@ -56,6 +59,7 @@ class User {
     print("$login login is $login");
     print("$login card_id is $card_id");
     print("$login own cards are " + own_cards.toString());
+    print("owncards size is " + own_cards.isEmpty.toString());
   }
 }
 
@@ -91,23 +95,40 @@ Future<void> getProfile(String id_user, User user_profile) async {
 }
 
 //Создание карточки. Прикрутить к регистрации.
-Future<void> createCard(User user) async {
-  String user_id = user.id;
-  String card_name = "Визитка " + user.name;
-  String card_caption =
-      "Компания - " + user.company + ".\nДолжность - " + user.position;
+Future<void> createCard(String user_id, String surname, String name,
+    String company, String position) async {
+  String card_name = surname + " " + name;
+  String card_caption = "Компания - " + company + ".\nДолжность - " + position;
   String _request =
       "$url?action=card-create&id_user=$user_id&card_name=$card_name&card_caption=$card_caption";
   await http.get(_request);
 }
 
+Future<void> getCard(String card_id) async {
+  print("getting card");
+  String _request = url + "?action=get-card&id_card=" + card_id;
+  await http.get(_request).then((response) {
+    var answer = json.decode(response.body)["response"];
+    if (answer.containsKey("error")) {
+      card_result = "error";
+    } else {
+      print("getCard answer if $answer");
+      card_result = answer["name"] + "\n" + answer["caption"];
+      ownerID = answer["owner_id"];
+      cardID = answer["id"];
+    }
+  });
+}
+
 // Получение карточки от пользователя. Используется для qr-scan.
-Future<void> getCard(String owner_id, String card_id, User user) async {
+Future<void> getCardToUser(String owner_id, String card_id, User user) async {
   String _request = "$url?action=give-card&id_owner=$owner_id&id_recipient=" +
       user.id +
       "&id_card=$card_id";
+  print("Adding card with request \n $_request");
   await http.get(_request).then((response) {
     var answer = json.decode(response.body);
+    print(answer);
     if (answer['response']['status'] == 0) {
       //  Если не получилось - вызывается исколючение
       throw CardException(answer['response']['id']);
@@ -133,7 +154,36 @@ Future<void> getProfileFromCard(String card_id, User user) async {
   );
 }
 
-//Функция входа в систему.
+//Функция проверки того, есть ли такой логин в БД
+Future<void> checkLogin(String login) async {
+  String request = url + "?action=check-login&login=$login";
+  await http.get(request).then((response) {
+    loginExist = (json.decode(response.body)["response"]["status"] == 1);
+  });
+}
+
+Future<void> registry(
+    String _name,
+    String _surname,
+    String _patronymic,
+    String _company,
+    String _position,
+    String _mail,
+    String _phone,
+    String _login,
+    String _password) {
+  print("Trying to reg...");
+  String request = url +
+      "?action=register&name=$_name&surname=$_surname&patronymic=$_patronymic&company=$_company&position=$_position&mail=$_mail&phone=$_phone&login=$_login&password=$_password";
+  print(request);
+  http.get(request).then((_) {
+    print("Logging in with $_login and $_password");
+    logIn(_login, _password)
+        .then((_) => createCard(user_id, _surname, _name, _company, _position));
+  });
+}
+
+//Функция вход в систему.
 Future<void> logIn(
   String _login,
   String _password,

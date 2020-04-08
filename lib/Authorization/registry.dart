@@ -1,4 +1,4 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:shared/Authorization/login_screen.dart';
 import './enter.dart';
 import '../mainpage.dart';
@@ -281,4 +281,3 @@ class _RegistryState extends State<Registry> {
     ));
   }
 }
-*/

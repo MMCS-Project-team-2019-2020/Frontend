@@ -1,6 +1,4 @@
 //import 'dart:html';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:shared/widgets/placeholder_card_short.dart';
 import 'profile.dart';
@@ -12,14 +10,16 @@ List<User> user_list = [];
 bool inProcess = true;
 //Заполнение этого массива.
 Future<void> fillList(List<User> list) async {
-  for (String id in main_user.own_cards) {
-    User contact = new User();
-    await getProfileFromCard(id, contact).then(
-      (_) {
-        //contact.PrintUser();
-        list.add(contact);
-      },
-    );
+  if (main_user.own_cards.length != 0) {
+    for (String id in main_user.own_cards) {
+      User contact = new User();
+      await getProfileFromCard(id, contact).then(
+        (_) {
+          //contact.PrintUser();
+          list.add(contact);
+        },
+      );
+    }
   }
 }
 

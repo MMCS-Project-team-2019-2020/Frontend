@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared/Pages/infocards.dart';
 import '../Authorization/enter.dart';
 
-import 'package:qr_flutter/qr_flutter.dart';
-
 User main_user = new User();
-String _identity = main_user.id + ' ' + main_user.card_id;
 
 class GridContent extends StatelessWidget {
   @override
@@ -45,14 +42,6 @@ class GridContent extends StatelessWidget {
                   ),
                 ),
                 ICards(main_user),
-                SizedBox(
-                  height: 45,
-                ),
-                QrImage(
-                  data: _identity,
-                  backgroundColor: Colors.white,
-                  size: 300,
-                ),
                 SizedBox(
                   height: 65,
                 ),
