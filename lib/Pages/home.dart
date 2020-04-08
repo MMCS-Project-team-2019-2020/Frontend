@@ -123,7 +123,8 @@ class _ScanState extends State<ScanScreen> {
       print(e);
       setState(() {
         _isCard = false;
-        barcode = "Ошибка во время считывания карты";
+        barcode =
+            "Невозможно добавить эту визитку. \nВозможно, она у вас уже есть.";
       });
     }
   }
