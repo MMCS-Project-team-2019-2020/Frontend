@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared/Pages/account.dart';
 import 'package:shared/widgets/info_card.dart';
-import 'profile.dart';
+import '../Pages/profile.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import '../Authorization/enter.dart'; // taking the "get-profile" function from there
+import './enter.dart'; // taking the "get-profile" function from there
 import '../Authorization/login_screen.dart'; // taking user_id var from it.
 
 String _company = '';
@@ -13,7 +13,7 @@ String _mail = "";
 String _name = '';
 String _phone = '';
 String identity = '';
-bool _first_time = true;
+bool first_time = true;
 
 Future<void> filling(User fill_user) async {
   await getProfile(user_id, main_user).then((_) {
@@ -44,12 +44,12 @@ class _ICardsState extends State<ICards> {
   _ICardsState(this.iCSUser);
   @override
   Widget build(BuildContext context) {
-    if (_first_time) {
+    if (first_time) {
       filling(iCSUser).then(
         (_) {
           if (mounted) {
             setState(() {
-              _first_time = false;
+              first_time = false;
             });
           }
           fillList(user_list).then((_) => inProcess = false);

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared/Authorization/enter.dart';
-import 'package:shared/Pages/infocards.dart';
+import 'package:shared/Helpers/enter.dart';
+import 'package:shared/Helpers/cards.dart';
 import 'profile.dart';
 import 'account.dart';
 
@@ -31,7 +31,7 @@ class _ScanState extends State<ScanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
-          title: new Text('QR Code Scanner'),
+          title: new Text('Cканер'),
         ),
         body: new Center(
             child: ohWait
@@ -58,7 +58,7 @@ class _ScanState extends State<ScanScreen> {
                                   textColor: Colors.white,
                                   splashColor: Colors.blueGrey,
                                   onPressed: scan,
-                                  child: const Text('START CAMERA SCAN')),
+                                  child: const Text('Сканировать')),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(
@@ -86,7 +86,7 @@ class _ScanState extends State<ScanScreen> {
                                   textColor: Colors.white,
                                   splashColor: Colors.blueGrey,
                                   onPressed: Accept,
-                                  child: const Text('Accept')),
+                                  child: const Text('Принять')),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(
@@ -99,7 +99,7 @@ class _ScanState extends State<ScanScreen> {
                                         _isCard = false;
                                         card_result = "error";
                                       }),
-                                  child: const Text("Decline")),
+                                  child: const Text("Отменить")),
                             ),
                           ])));
   }

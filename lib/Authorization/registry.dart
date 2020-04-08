@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared/Authorization/login_screen.dart';
-import './enter.dart';
+import '../Helpers/enter.dart';
 import '../mainpage.dart';
 
 String _name = "";

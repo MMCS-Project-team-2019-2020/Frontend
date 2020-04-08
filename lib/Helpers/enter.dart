@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared/Authorization/registry.dart';
 import 'package:shared/Pages/home.dart';
-import './login_screen.dart';
-import 'registry.dart';
+import '../Authorization/login_screen.dart';
+import '../Authorization/registry.dart';
 
 //url хостинга бэкэнда.
 const url = "http://www.vvd-rks.ru/proj/";

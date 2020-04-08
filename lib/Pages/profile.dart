@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared/Pages/infocards.dart';
-import '../Authorization/enter.dart';
+import 'package:shared/Helpers/cards.dart';
+import '../Helpers/enter.dart';
 
 User main_user = new User();
 

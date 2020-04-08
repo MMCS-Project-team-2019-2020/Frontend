@@ -1,7 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:shared/Authorization/enter.dart';
+import 'package:shared/Helpers/enter.dart';
 
 class PlaceholderCardShort extends StatelessWidget {
   final double width;
@@ -11,7 +10,14 @@ class PlaceholderCardShort extends StatelessWidget {
   final Color backgroundColor;
   final User current_user;
 
-  const PlaceholderCardShort(this.current_user, {Key key, this.cornerRadius = 4, this.color, this.backgroundColor, this.width = 400, this.height = 90 }) : super(key: key);
+  const PlaceholderCardShort(this.current_user,
+      {Key key,
+      this.cornerRadius = 4,
+      this.color,
+      this.backgroundColor,
+      this.width = 400,
+      this.height = 90})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,42 +27,49 @@ class PlaceholderCardShort extends StatelessWidget {
     return Container(
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
-        color: backgroundColor ?? Color(0xFFC7EAFF)
-      ),
-      
+          borderRadius: BorderRadius.circular(4),
+          color: backgroundColor ?? Color(0xFFC7EAFF)),
       padding: EdgeInsets.all(26),
       child: Stack(
         children: <Widget>[
-          
           Align(
             alignment: Alignment.centerRight,
             child: Container(
               margin: EdgeInsets.only(right: 0),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: fgColor),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4), color: fgColor),
               height: 32,
               width: 32,
             ),
           ),
 
           //Content Line
-          Container(margin: EdgeInsets.only(right: 50.0), 
-          color: fgColor, height: lineHeight, 
-          child: Text(current_user.surname + " " + current_user.name + '                               ',
-           style: TextStyle(
-             fontSize: 20,    
-           )
-          
-          ),
-          ),  
-      //Content Line
           Container(
-            margin: EdgeInsets.only(right: 50.0, top: lineHeight + 6), 
-            color: fgColor, height: lineHeight, 
-            child: Text(current_user.company + " " + current_user.position + '                               ',
-            style: TextStyle(
-              fontSize: 20,
-            ),
+            margin: EdgeInsets.only(right: 50.0),
+            color: fgColor,
+            height: lineHeight,
+            child: Text(
+                current_user.surname +
+                    " " +
+                    current_user.name +
+                    '                               ',
+                style: TextStyle(
+                  fontSize: 20,
+                )),
+          ),
+          //Content Line
+          Container(
+            margin: EdgeInsets.only(right: 50.0, top: lineHeight + 6),
+            color: fgColor,
+            height: lineHeight,
+            child: Text(
+              current_user.company +
+                  " " +
+                  current_user.position +
+                  '                               ',
+              style: TextStyle(
+                fontSize: 20,
+              ),
             ),
           ),
         ],

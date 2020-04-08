@@ -1,8 +1,8 @@
 //import 'dart:html';
 import 'package:flutter/material.dart';
-import 'package:shared/widgets/placeholder_card_short.dart';
 import 'profile.dart';
-import '../Authorization/enter.dart';
+import '../Helpers/enter.dart';
+import '../Helpers/profile_from_card.dart';
 
 // Массив профилей, карточки которых есть у основного пользователя
 List<User> user_list = [];
@@ -103,7 +103,8 @@ class UserButton extends StatelessWidget {
                 ],
               ),
             ),
-            onPressed: () => current_user.PrintUser(),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Contact(current_user))),
             padding: EdgeInsets.all(3.0),
             color: Color(0xFF75B7E1),
             focusColor: Colors.black45,

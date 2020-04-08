@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import './enter.dart';
+import 'package:shared/Helpers/cards.dart';
+import 'package:shared/Pages/account.dart';
+import '../Helpers/enter.dart';
 import '../mainpage.dart';
 import './registry.dart';
 
@@ -24,6 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
     await logIn(_loginInput, _passwordInput).then((_) {
       print("PassControler is $passController");
       if (passController) {
+        first_time = true;
+        user_list = [];
         Navigator.push(context, MaterialPageRoute(builder: (context) => App()));
       }
     });
