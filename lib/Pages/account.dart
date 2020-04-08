@@ -40,22 +40,13 @@ class UserButton extends StatelessWidget {
       padding: EdgeInsets.all(10),
             child: Column(
               children: <Widget>[
-                Text(
-                  'Контакты',
-                  style: TextStyle(
-                    fontSize: 60.0,
-                    color: Colors.white,
-                  ),
-                ),
+               
         SizedBox(
-        height: MediaQuery.of(context).size.height,
+        height: 120,
         width: MediaQuery.of(context).size.width,
-        
-        child: ListView.builder(
-        itemCount: 1,
-        itemBuilder: (content, index) {
+      
 
-        return RaisedButton(
+        child: RaisedButton(
           child: Container(
       height: height,
       decoration: BoxDecoration(
@@ -102,17 +93,17 @@ class UserButton extends StatelessWidget {
    ),
           onPressed: () => current_user.PrintUser(),
           padding: EdgeInsets.all(3.0),
-          color: Colors.black,
+          color: Color(0xFF75B7E1),
           focusColor: Colors.black45,
-          splashColor: Colors.black,
-        );
-        }
+          splashColor: Color(0xFF75B7E1),
+        ),
+        
+        
         
       ),
-    ),
-            SizedBox(height: 150,)
               ]
-            ),
+    ),
+           
             );
   }
 
