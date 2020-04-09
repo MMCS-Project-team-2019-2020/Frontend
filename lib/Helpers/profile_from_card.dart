@@ -9,7 +9,7 @@ class Contact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF75B7E1),
+      backgroundColor: Color(0xff22313F),
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(top: 30, left: 10, right: 10),
@@ -20,7 +20,7 @@ class Contact extends StatelessWidget {
               
               Container(
                 width: 100,
-                margin: EdgeInsets.only(right: 300),
+                margin: EdgeInsets.only(right: 250),
                 child: RaisedButton(
                   
                   child: Icon(Icons.arrow_back),

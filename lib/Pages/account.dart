@@ -1,4 +1,3 @@
-//import 'dart:html';
 import 'package:flutter/material.dart';
 import 'profile.dart';
 import '../Helpers/enter.dart';
@@ -47,7 +46,6 @@ class UserButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10),
       child: Column(children: <Widget>[
-  
         SizedBox(
           height: 120,
           width: MediaQuery.of(context).size.width,
@@ -56,7 +54,7 @@ class UserButton extends StatelessWidget {
               height: height,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(cornerRadius),
-                  color: backgroundColor ?? Color(0xFFC7EAFF)),
+                  color: backgroundColor ?? Color(0xffDFDFDF)),
               padding: EdgeInsets.all(26),
               child: Stack(
                 children: <Widget>[
@@ -75,37 +73,60 @@ class UserButton extends StatelessWidget {
                   //Content Line
                   Container(
                     margin: EdgeInsets.only(right: 50.0),
-                    color: fgColor,
+                    color: Colors.white,
+                    
                     height: lineHeight,
                     child: Text(
-                        current_user.surname +
+                      ' ' + current_user.surname +
                             " " +
                             current_user.name +
-                            '                               ',
+                            '                                                                                                                                       ',
                         style: TextStyle(
                           fontSize: 22,
                           fontFamily: 'Comic' 
                         )),
                   ),
-                  //Content Line
-                  Container(
-                    margin: EdgeInsets.only(right: 50.0, top: lineHeight + 2),
-                    color: fgColor,
+                  SizedBox(height: 10,),
+                   Container(
+                    margin: EdgeInsets.only(right: 50.0, top: 35),                 
                     height: lineHeight,
+                    color: Colors.white,
                     child: Text(
-                      current_user.company +
+                      ' ' + current_user.company +
                           " " +
                           current_user.position +
-                          '                               ',
+                          '                                                                                                                                           ',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: 'Comic'
                       ),
                     ),
                   ),
+                  
+                  //Content Line
+                  Container(
+                    margin: EdgeInsets.only(right: 50.0, top: 35),
+                    
+                    height: lineHeight,
+                    decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2)
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(right: 50.0),
+                    
+                    height: lineHeight,
+                    decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2),
+                    ),
+                  ),
+                
+                            
                 ],
               ),
             ),
+            
             onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => Contact(current_user))),
             padding: EdgeInsets.all(3.0),
@@ -129,7 +150,13 @@ class _AccountContentState extends State<AccountContent> {
   Widget build(BuildContext context) {
     print("Out of everything!");
     print(user_list.length);
-    return Center(
+    return Scaffold(
+       backgroundColor: Color(0xff22313F),
+        appBar: new AppBar(
+          backgroundColor: Colors.white,        
+          title: new Text('Cохраненные визитки', style: TextStyle(color: Colors.black),), 
+        ),    
+    body: Center(
       child: inProcess
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -147,6 +174,7 @@ class _AccountContentState extends State<AccountContent> {
                 children: user_list.map((user) => UserButton(user)).toList(),
               ),
             ),
-    );
+    ),
+  );
   }
 }

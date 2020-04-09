@@ -24,7 +24,7 @@ class Registry extends StatefulWidget {
 
 class _RegistryState extends State<Registry> {
   final TextStyle style = TextStyle(
-      color: Colors.lightBlueAccent,
+      color: Colors.black,
       fontFamily: 'Montserrat',
       fontSize: 25,
       fontWeight: FontWeight.bold);
@@ -36,7 +36,7 @@ class _RegistryState extends State<Registry> {
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
-            Text("Логин пользователя:"),
+            Text("Логин пользователя:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
             TextFormField(
               style: style,
               keyboardType: TextInputType.emailAddress,
@@ -48,6 +48,8 @@ class _RegistryState extends State<Registry> {
                   checkLogin(value.toLowerCase()).then((_) => setState(() {}));
               },
               decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,             
                   hintText: 'Login',
                   border: OutlineInputBorder(gapPadding: 10)),
             ),
@@ -68,7 +70,7 @@ class _RegistryState extends State<Registry> {
         child: Column(
           children: [
             _passwordCheck
-                ? Text("Пароль:")
+                ? Text("Пароль:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),)
                 : Text("Пароль должен содержать больше 4 символов!",
                     style:
                         TextStyle(color: Colors.redAccent[700], fontSize: 22)),
@@ -82,6 +84,8 @@ class _RegistryState extends State<Registry> {
                 setState(() {});
               },
               decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,  
                   hintText: 'Password',
                   border: OutlineInputBorder(gapPadding: 10)),
             ),
@@ -92,7 +96,7 @@ class _RegistryState extends State<Registry> {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          Text("Фамилия:"),
+          Text("Фамилия:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -100,11 +104,13 @@ class _RegistryState extends State<Registry> {
               _surname = value;
             },
             decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,  
                 hintText: 'Фамилия',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
           Padding(padding: EdgeInsets.all(10)),
-          Text("Имя:"),
+          Text("Имя:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -112,10 +118,12 @@ class _RegistryState extends State<Registry> {
               _name = value;
             },
             decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,                  
                 hintText: 'Имя', border: OutlineInputBorder(gapPadding: 10)),
           ),
           Padding(padding: EdgeInsets.all(10)),
-          Text("Отчество:"),
+          Text("Отчество:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -123,6 +131,8 @@ class _RegistryState extends State<Registry> {
               _patronymic = value;
             },
             decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,  
                 hintText: 'Отчество',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
@@ -142,7 +152,7 @@ class _RegistryState extends State<Registry> {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          Text("Номер телефона:"),
+          Text("Номер телефона:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
           TextFormField(
             style: style,
             keyboardType: TextInputType.phone,
@@ -150,12 +160,14 @@ class _RegistryState extends State<Registry> {
               _phone = value;
             },
             decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white, 
               hintText: '+7-000-000-00-00',
               border: OutlineInputBorder(gapPadding: 10),
             ),
           ),
           Padding(padding: EdgeInsets.all(10)),
-          Text("E-mail:"),
+          Text("E-mail:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -163,6 +175,8 @@ class _RegistryState extends State<Registry> {
               _mail = value;
             },
             decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white, 
                 hintText: 'example@exmaple.com',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
@@ -174,7 +188,7 @@ class _RegistryState extends State<Registry> {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          Text("Место работы:"),
+          Text("Место работы:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -182,11 +196,13 @@ class _RegistryState extends State<Registry> {
               _company = value;
             },
             decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white, 
                 hintText: 'Место работы',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
           Padding(padding: EdgeInsets.all(10)),
-          Text("Должность:"),
+          Text("Должность:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -194,6 +210,8 @@ class _RegistryState extends State<Registry> {
               _position = value;
             },
             decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white, 
                 hintText: 'Должность',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
@@ -204,7 +222,7 @@ class _RegistryState extends State<Registry> {
     final _register = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
-      color: Colors.blueGrey[300],
+      color: Color(0xff3498DB),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
@@ -241,13 +259,13 @@ class _RegistryState extends State<Registry> {
         child: Text("Зарегестрироваться",
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Colors.black, fontWeight: FontWeight.bold)),
+                color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
     final _cancel = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
-      color: Colors.blueGrey[300],
+      color: Color(0xff3498DB),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
@@ -259,7 +277,7 @@ class _RegistryState extends State<Registry> {
         child: Text("Отмена",
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Colors.black, fontWeight: FontWeight.bold)),
+                color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
     final _buttons = Column(
@@ -267,6 +285,7 @@ class _RegistryState extends State<Registry> {
     );
 
     return Scaffold(
+        backgroundColor: Color(0xff22313F),
         body: Center(
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 50),

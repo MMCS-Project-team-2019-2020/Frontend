@@ -17,7 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextStyle style = TextStyle(
-      color: Colors.lightBlueAccent,
+      color: Colors.black,
       fontFamily: 'Montserrat',
       fontSize: 25,
       fontWeight: FontWeight.bold);
@@ -37,10 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
       context, MaterialPageRoute(builder: (context) => Registry()));
   @override
   Widget build(BuildContext context) {
-    SingleChildScrollView(
-  
-    );
     final loginField = TextFormField( 
+      
       obscureText: false,
       style: style,
       keyboardType: TextInputType.emailAddress,
@@ -48,6 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
         _loginInput = value;
       },
       decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
           hintText: 'Login',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
     );
@@ -58,6 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
         _passwordInput = value;
       },
       decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
           hintText: 'Password',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
     );
@@ -68,8 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
-      color: Colors.blueGrey[300],
-      
+      color: Color(0xff3498DB),
         child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
@@ -77,9 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
           chageController();
         },
         child: Text("Войти",
+    
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Colors.black, fontWeight: FontWeight.bold)),
+                color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     ),
     ]
@@ -94,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
-      color: Colors.blueGrey[300],
+      color: Color(0xff3498DB),
       child: Container(
       
       child: MaterialButton(
@@ -107,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Text("Регистрация",
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Colors.black, fontWeight: FontWeight.bold)),
+                color: Colors.white, fontWeight: FontWeight.bold)),
       ),
       ),
       ),
@@ -116,6 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
+      backgroundColor: Color(0xff22313F),
       body: Center(
           child: Container(
         padding: EdgeInsets.all(30),
@@ -126,6 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Text("PassStatus:" + passController.toString()),
             SizedBox(height: 30),
             Column(children: <Widget>[
+              Container(color: Colors.white),
               loginField,
               SizedBox(height: 30),
               passwordField

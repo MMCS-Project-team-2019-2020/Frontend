@@ -21,14 +21,14 @@ class InfoCard extends StatelessWidget {
         child: ListTile(
           leading: Icon(
             icon,
-            color: Colors.teal,
+            color: Color(0xff3A539B),
           ),
           title: Text(
             text,
             style: TextStyle(
               fontFamily: 'Source Sans Pro',
               fontSize: 20.0,
-              color: Colors.teal,
+              color: Color(0xff3A539B),
             ),
           ),
         ),

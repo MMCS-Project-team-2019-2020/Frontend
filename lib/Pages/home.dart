@@ -31,11 +31,12 @@ class _ScanState extends State<ScanScreen> {
   Widget build(BuildContext context) {
     
     return Scaffold(
-        backgroundColor: Color(0xFF75B7E1),
+        backgroundColor: Color(0xff22313F),
         appBar: new AppBar(
-          title: new Text('Cканер'),
+          backgroundColor: Colors.white,        
+          title: new Text('Сканер', style: TextStyle(color: Colors.black),), 
         ),
-        body: new Center(
+        body: new Center(  
             child: ohWait
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -56,8 +57,8 @@ class _ScanState extends State<ScanScreen> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 8.0),
                               child: RaisedButton(
-                                  color: Colors.blue,
-                                  textColor: Colors.white,
+                                  color: Color(0xffDFDFDF),
+                                  textColor: Colors.black,
                                   splashColor: Colors.blueGrey,
                                   onPressed: scan,
                                   child: const Text('Сканировать')),
@@ -84,8 +85,8 @@ class _ScanState extends State<ScanScreen> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 8.0),
                               child: RaisedButton(
-                                  color: Colors.blue,
-                                  textColor: Colors.white,
+                                  color: Color(0xffDFDFDF),
+                                  textColor: Colors.black,
                                   splashColor: Colors.blueGrey,
                                   onPressed: Accept,
                                   child: const Text('Принять')),
@@ -94,8 +95,8 @@ class _ScanState extends State<ScanScreen> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 8.0),
                               child: RaisedButton(
-                                  color: Colors.blue,
-                                  textColor: Colors.white,
+                                  color: Color(0xffDFDFDF),
+                                  textColor: Colors.black,
                                   splashColor: Colors.blueGrey,
                                   onPressed: () => setState(() {
                                         _isCard = false;
@@ -154,7 +155,7 @@ class _ScanState extends State<ScanScreen> {
       }
     } on FormatException {
       setState(() => this.barcode =
-          'null (User returned using the "back"-button before scanning anything. Result)');
+          'null (User returned using the "back"-button before scanning anything. Result)',);
     } catch (e) {
       setState(() => this.barcode = 'Unknown error: $e');
     }

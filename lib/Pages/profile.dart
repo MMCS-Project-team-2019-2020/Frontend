@@ -8,9 +8,10 @@ class GridContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF75B7E1),
+        backgroundColor: Color(0xff22313F),
         appBar: new AppBar(
-          title: new Text('Ваш Профиль'),
+          backgroundColor: Colors.white,        
+          title: new Text('Ваш профиль', style: TextStyle(color: Colors.black),), 
         ),
       body: Container(
       padding: EdgeInsets.only(left: 10, right: 10, top: 10),
