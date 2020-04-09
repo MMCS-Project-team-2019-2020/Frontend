@@ -37,7 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
       context, MaterialPageRoute(builder: (context) => Registry()));
   @override
   Widget build(BuildContext context) {
-    final loginField = TextFormField(
+    SingleChildScrollView(
+  
+    );
+    final loginField = TextFormField( 
       obscureText: false,
       style: style,
       keyboardType: TextInputType.emailAddress,
@@ -58,12 +61,16 @@ class _LoginScreenState extends State<LoginScreen> {
           hintText: 'Password',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
     );
-
-    final _enterButton = Material(
+    
+    final _enterButton = Column(
+      children: <Widget>[
+      SizedBox(height: 10,),
+      Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
       color: Colors.blueGrey[300],
-      child: MaterialButton(
+      
+        child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           print("Button pressed!");
@@ -74,13 +81,25 @@ class _LoginScreenState extends State<LoginScreen> {
             style: style.copyWith(
                 color: Colors.black, fontWeight: FontWeight.bold)),
       ),
+    ),
+    ]
     );
-    final _registry = Material(
+    
+    final _registry = Column(
+      children: <Widget>[
+      SizedBox(height: 10,),
+      Container(
+
+      margin: EdgeInsets.only(bottom: 200),
+      child: Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(20),
       color: Colors.blueGrey[300],
+      child: Container(
+      
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
+        
         onPressed: () {
           print("Switched to registry");
           goToReg();
@@ -90,6 +109,10 @@ class _LoginScreenState extends State<LoginScreen> {
             style: style.copyWith(
                 color: Colors.black, fontWeight: FontWeight.bold)),
       ),
+      ),
+      ),
+      ),
+      ]
     );
 
     return Scaffold(

@@ -9,14 +9,28 @@ class Contact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF75B7E1),
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(top: 30, left: 10, right: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: <Widget>[             
+              
+              
+              Container(
+                width: 100,
+                margin: EdgeInsets.only(right: 300),
+                child: RaisedButton(
+                  
+                  child: Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              
+              ),
+              
               SizedBox(
-                height: 50,
+                height: 25,
               ),
               InfoCard(
                 text: cardOwner.phone,
@@ -50,16 +64,7 @@ class Contact extends StatelessWidget {
                 backgroundColor: Colors.white,
                 size: 300,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-              ),
-              Container(
-                width: double.infinity,
-                child: RaisedButton(
-                  child: Text("Назад"),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              )
+              
             ],
           ),
         ),

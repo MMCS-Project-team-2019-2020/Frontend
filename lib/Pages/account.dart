@@ -47,6 +47,7 @@ class UserButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10),
       child: Column(children: <Widget>[
+  
         SizedBox(
           height: 120,
           width: MediaQuery.of(context).size.width,
@@ -64,10 +65,10 @@ class UserButton extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.only(right: 0),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(0),
                           color: fgColor),
-                      height: 32,
-                      width: 32,
+                      height: 0,
+                      width: 0,
                     ),
                   ),
 
@@ -82,12 +83,13 @@ class UserButton extends StatelessWidget {
                             current_user.name +
                             '                               ',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 22,
+                          fontFamily: 'Comic' 
                         )),
                   ),
                   //Content Line
                   Container(
-                    margin: EdgeInsets.only(right: 50.0, top: lineHeight + 6),
+                    margin: EdgeInsets.only(right: 50.0, top: lineHeight + 2),
                     color: fgColor,
                     height: lineHeight,
                     child: Text(
@@ -97,6 +99,7 @@ class UserButton extends StatelessWidget {
                           '                               ',
                       style: TextStyle(
                         fontSize: 20,
+                        fontFamily: 'Comic'
                       ),
                     ),
                   ),
@@ -106,9 +109,9 @@ class UserButton extends StatelessWidget {
             onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => Contact(current_user))),
             padding: EdgeInsets.all(3.0),
-            color: Color(0xFF75B7E1),
+            color: Colors.black,
             focusColor: Colors.black45,
-            splashColor: Color(0xFF75B7E1),
+            splashColor: Colors.black,
           ),
         ),
       ]),
