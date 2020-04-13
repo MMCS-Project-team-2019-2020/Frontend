@@ -171,16 +171,12 @@ Future<void> registry(
     String _mail,
     String _phone,
     String _login,
-    String _password) {
+    String _password) async {
   print("Trying to reg...");
   String request = url +
       "?action=register&name=$_name&surname=$_surname&patronymic=$_patronymic&company=$_company&position=$_position&mail=$_mail&phone=$_phone&login=$_login&password=$_password";
   print(request);
-  http.get(request).then((_) {
-    print("Logging in with $_login and $_password");
-    logIn(_login, _password)
-        .then((_) => createCard(user_id, _surname, _name, _company, _position));
-  });
+  await http.get(request);
 }
 
 //Функция вход в систему.

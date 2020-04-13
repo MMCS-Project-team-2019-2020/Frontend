@@ -14,6 +14,7 @@ String _login = "";
 String _password = "";
 bool loginExist = false;
 bool _passwordCheck = true;
+bool _inProcess = false;
 
 //bool _buttonEnabled = !loginExist && _passwordCheck && allFieldsNotNull;
 
@@ -36,7 +37,10 @@ class _RegistryState extends State<Registry> {
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
-            Text("Логин пользователя:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
+            Text(
+              "Логин пользователя:",
+              style: TextStyle(fontFamily: 'Comic', color: Colors.white),
+            ),
             TextFormField(
               style: style,
               keyboardType: TextInputType.emailAddress,
@@ -49,7 +53,7 @@ class _RegistryState extends State<Registry> {
               },
               decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.white,             
+                  fillColor: Colors.white,
                   hintText: 'Login',
                   border: OutlineInputBorder(gapPadding: 10)),
             ),
@@ -70,7 +74,10 @@ class _RegistryState extends State<Registry> {
         child: Column(
           children: [
             _passwordCheck
-                ? Text("Пароль:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),)
+                ? Text(
+                    "Пароль:",
+                    style: TextStyle(fontFamily: 'Comic', color: Colors.white),
+                  )
                 : Text("Пароль должен содержать больше 4 символов!",
                     style:
                         TextStyle(color: Colors.redAccent[700], fontSize: 22)),
@@ -85,7 +92,7 @@ class _RegistryState extends State<Registry> {
               },
               decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.white,  
+                  fillColor: Colors.white,
                   hintText: 'Password',
                   border: OutlineInputBorder(gapPadding: 10)),
             ),
@@ -96,7 +103,10 @@ class _RegistryState extends State<Registry> {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          Text("Фамилия:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
+          Text(
+            "Фамилия:",
+            style: TextStyle(fontFamily: 'Comic', color: Colors.white),
+          ),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -105,12 +115,15 @@ class _RegistryState extends State<Registry> {
             },
             decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,  
+                fillColor: Colors.white,
                 hintText: 'Фамилия',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
           Padding(padding: EdgeInsets.all(10)),
-          Text("Имя:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
+          Text(
+            "Имя:",
+            style: TextStyle(fontFamily: 'Comic', color: Colors.white),
+          ),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -118,12 +131,16 @@ class _RegistryState extends State<Registry> {
               _name = value;
             },
             decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,                  
-                hintText: 'Имя', border: OutlineInputBorder(gapPadding: 10)),
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'Имя',
+                border: OutlineInputBorder(gapPadding: 10)),
           ),
           Padding(padding: EdgeInsets.all(10)),
-          Text("Отчество:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
+          Text(
+            "Отчество:",
+            style: TextStyle(fontFamily: 'Comic', color: Colors.white),
+          ),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -132,7 +149,7 @@ class _RegistryState extends State<Registry> {
             },
             decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,  
+                fillColor: Colors.white,
                 hintText: 'Отчество',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
@@ -152,7 +169,10 @@ class _RegistryState extends State<Registry> {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          Text("Номер телефона:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
+          Text(
+            "Номер телефона:",
+            style: TextStyle(fontFamily: 'Comic', color: Colors.white),
+          ),
           TextFormField(
             style: style,
             keyboardType: TextInputType.phone,
@@ -161,13 +181,16 @@ class _RegistryState extends State<Registry> {
             },
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white, 
+              fillColor: Colors.white,
               hintText: '+7-000-000-00-00',
               border: OutlineInputBorder(gapPadding: 10),
             ),
           ),
           Padding(padding: EdgeInsets.all(10)),
-          Text("E-mail:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
+          Text(
+            "E-mail:",
+            style: TextStyle(fontFamily: 'Comic', color: Colors.white),
+          ),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -176,7 +199,7 @@ class _RegistryState extends State<Registry> {
             },
             decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white, 
+                fillColor: Colors.white,
                 hintText: 'example@exmaple.com',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
@@ -188,7 +211,10 @@ class _RegistryState extends State<Registry> {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          Text("Место работы:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
+          Text(
+            "Место работы:",
+            style: TextStyle(fontFamily: 'Comic', color: Colors.white),
+          ),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -197,12 +223,15 @@ class _RegistryState extends State<Registry> {
             },
             decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white, 
+                fillColor: Colors.white,
                 hintText: 'Место работы',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
           Padding(padding: EdgeInsets.all(10)),
-          Text("Должность:", style: TextStyle( fontFamily:'Comic', color: Colors.white ),),
+          Text(
+            "Должность:",
+            style: TextStyle(fontFamily: 'Comic', color: Colors.white),
+          ),
           TextFormField(
             style: style,
             keyboardType: TextInputType.emailAddress,
@@ -211,7 +240,7 @@ class _RegistryState extends State<Registry> {
             },
             decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white, 
+                fillColor: Colors.white,
                 hintText: 'Должность',
                 border: OutlineInputBorder(gapPadding: 10)),
           ),
@@ -225,7 +254,7 @@ class _RegistryState extends State<Registry> {
       color: Color(0xff3498DB),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
+        onPressed: () async {
           print("Trying to register...");
           bool allFieldsNotNull = _name != "" &&
               _surname != "" &&
@@ -237,21 +266,37 @@ class _RegistryState extends State<Registry> {
               _phone != "" &&
               _login != "";
           if (allFieldsNotNull) {
-            checkLogin(_login).then(
+            await checkLogin(_login).then(
               (_) {
                 print("Login checked! Login exist is $loginExist");
                 _passwordCheck = _password.length > 4;
                 if (_passwordCheck && !loginExist) {
                   registry(_name, _surname, _patronymic, _company, _position,
-                      _mail, _phone, _login, _password);
-                } else
+                          _mail, _phone, _login, _password)
+                      .then(
+                    (_) {
+                      setState(() {
+                        _inProcess = true;
+                      });
+                      logIn(_login, _password)
+                          .then((_) => createCard(
+                              user_id, _surname, _name, _company, _position))
+                          .whenComplete(
+                        () {
+                          setState(() {
+                            _inProcess = true;
+                          });
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => App()));
+                        },
+                      );
+                    },
+                  );
+                } else {
                   setState(() {});
+                }
               },
-            ).then((_) {
-              if (passController)
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => App()));
-            });
+            );
           } else {
             print("Не вышло, поля не заполнены");
           }
@@ -287,16 +332,28 @@ class _RegistryState extends State<Registry> {
     return Scaffold(
         backgroundColor: Color(0xff22313F),
         body: Center(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 50),
-        child: Column(children: [
-          _loginAndPasswordField,
-          _nSPField,
-          _phoneAndEmail,
-          _companyAndPosition,
-          _buttons,
-        ]),
-      ),
-    ));
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(vertical: 50),
+            child: _inProcess
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Идёт загрузка визиток..."),
+                      CircularProgressIndicator(
+                        strokeWidth: 8,
+                        backgroundColor: Colors.grey,
+                      ),
+                    ],
+                  )
+                : Column(children: [
+                    _loginAndPasswordField,
+                    _nSPField,
+                    _phoneAndEmail,
+                    _companyAndPosition,
+                    _buttons,
+                  ]),
+          ),
+        ));
   }
 }

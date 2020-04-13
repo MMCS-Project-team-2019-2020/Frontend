@@ -3,6 +3,7 @@ import './Pages/account.dart';
 import './Pages/home.dart';
 import './Pages/profile.dart';
 import './Fluid/fluid_nav_bar.dart';
+import './Pages/geo.dart';
 
 class FluidNavBarDemo extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _FluidNavBarDemoState extends State {
     // Build a simple container that switches content based of off the selected navigation item
     return MaterialApp(
       home: Scaffold(
-        backgroundColor:Color(0xff22313F) ,
+        backgroundColor: Color(0xff22313F),
         extendBody: true,
         body: _child,
         bottomNavigationBar: FluidNavBar(onChange: _handleNavigationChange),
@@ -37,7 +38,7 @@ class _FluidNavBarDemoState extends State {
     setState(() {
       switch (index) {
         case 0:
-          _child = ScanScreen();
+          _child = ListenPage();
           break;
         case 1:
           _child = AccountContent();
