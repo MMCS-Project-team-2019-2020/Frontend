@@ -105,7 +105,8 @@ class _ScanState extends State<ScanScreen> {
                                   onPressed: () => setState(() {
                                         _isCard = false;
                                         card_result = "error";
-                                        barcode = "";
+                                        barcode =
+                                            "Вы отклонили данную карточку.";
                                       }),
                                   child: const Text("Отменить")),
                             ),
