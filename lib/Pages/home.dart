@@ -160,7 +160,8 @@ class _ScanState extends State<ScanScreen> {
     try {
       String barcode = await BarcodeScanner.scan();
       print("barcode is $barcode");
-      getCard(barcode).then((_) {
+      ohWait = true;
+      await getCard(barcode).then((_) {
         print("getting by $barcode");
         if (card_result != "error" && card_result != "") {
           _isCard = true;
@@ -176,7 +177,7 @@ class _ScanState extends State<ScanScreen> {
               setState(() {});
             });
           } catch (e) {
-            location = "Не удалось получить местоположение.";
+            setState(() => location = "Не удалось получить местоположение.");
             print(e);
           }
         } else {
@@ -186,7 +187,6 @@ class _ScanState extends State<ScanScreen> {
           });
         }
       });
-      ohWait = true;
       setState(() => this.barcode = barcode);
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
