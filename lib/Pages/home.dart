@@ -6,10 +6,12 @@ import 'package:shared/Helpers/enter.dart';
 import 'package:shared/Helpers/cards.dart';
 import 'profile.dart';
 import 'account.dart';
+import 'package:geolocator/geolocator.dart';
 
 String card_result = "";
 String ownerID;
 String cardID;
+String location = "";
 bool _isCard = false;
 
 class ScanScreen extends StatefulWidget {
@@ -29,14 +31,16 @@ class _ScanState extends State<ScanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         backgroundColor: Color(0xff22313F),
         appBar: new AppBar(
-          backgroundColor: Colors.white,        
-          title: new Text('Сканер', style: TextStyle(color: Colors.black),), 
+          backgroundColor: Colors.white,
+          title: new Text(
+            'Сканер',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
-        body: new Center(  
+        body: new Center(
             child: ohWait
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +81,7 @@ class _ScanState extends State<ScanScreen> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 8.0),
                               child: Text(
-                                card_result,
+                                card_result + '\nМесто получения: ' + location,
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -101,10 +105,29 @@ class _ScanState extends State<ScanScreen> {
                                   onPressed: () => setState(() {
                                         _isCard = false;
                                         card_result = "error";
+                                        barcode = "";
                                       }),
                                   child: const Text("Отменить")),
                             ),
                           ])));
+  }
+
+  Geolocator geolocator = Geolocator();
+  List<Placemark> userLocation;
+
+  Future<List<Placemark>> getLocation() async {
+    var currentLocation;
+    List<Placemark> placemark;
+    try {
+      print("there");
+      currentLocation = await geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+      placemark = await geolocator.placemarkFromPosition(currentLocation);
+    } catch (e) {
+      print(e);
+      currentLocation = null;
+    }
+    return placemark;
   }
 
   Future<void> Accept() async {
@@ -119,8 +142,9 @@ class _ScanState extends State<ScanScreen> {
           _isCard = false;
           barcode = "";
         });
-        filling(main_user)
-            .then((_) => fillList(user_list).then((_) => inProcess = false));
+        filling(main_user).then((_) => fillList(user_list).then(
+              (_) => setState(() => inProcess = false),
+            ));
       });
     } catch (e) {
       print(e);
@@ -137,10 +161,29 @@ class _ScanState extends State<ScanScreen> {
       String barcode = await BarcodeScanner.scan();
       print("barcode is $barcode");
       getCard(barcode).then((_) {
+        print("getting by $barcode");
         if (card_result != "error" && card_result != "") {
           _isCard = true;
           ohWait = false;
-          setState(() {});
+          try {
+            getLocation().then((placemark) {
+              location = placemark[0].subAdministrativeArea +
+                  " " +
+                  placemark[0].thoroughfare +
+                  ' ' +
+                  placemark[0].name;
+              print(location);
+              setState(() {});
+            });
+          } catch (e) {
+            location = "Не удалось получить местоположение.";
+            print(e);
+          }
+        } else {
+          setState(() {
+            ohWait = false;
+            barcode = "Не удалось получить данную карточку.";
+          });
         }
       });
       ohWait = true;
@@ -154,8 +197,10 @@ class _ScanState extends State<ScanScreen> {
         setState(() => this.barcode = 'Unknown error: $e');
       }
     } on FormatException {
-      setState(() => this.barcode =
-          'null (User returned using the "back"-button before scanning anything. Result)',);
+      setState(
+        () => this.barcode =
+            'null (User returned using the "back"-button before scanning anything. Result)',
+      );
     } catch (e) {
       setState(() => this.barcode = 'Unknown error: $e');
     }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
+import 'dart:async';
 
 class ListenPage extends StatefulWidget {
   @override
@@ -7,21 +8,32 @@ class ListenPage extends StatefulWidget {
 }
 
 class _ListenPageState extends State<ListenPage> {
-  Location location = Location();
+  Geolocator geolocator = Geolocator();
+  List<Placemark> userLocation;
 
-  Map<String, double> currentLocation;
+  Future<List<Placemark>> getLocation() async {
+    var currentLocation;
+    List<Placemark> placemark;
+    try {
+      print("there");
+      currentLocation = await geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+      placemark = await geolocator.placemarkFromPosition(currentLocation);
+    } catch (e) {
+      print(e);
+      currentLocation = null;
+    }
+    return placemark;
+  }
+
+  //TODO: Заебашить "Город, улица, дом" к создаваемой визитке на экране scan... Или в enter, хуй его знает
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    location.getLocation().then((value) {
-      setState(() {
-        currentLocation = {
-          "latitude": value.latitude,
-          "longitude": value.longitude
-        };
-      });
+    getLocation().then((placemark) {
+      userLocation = placemark;
     });
   }
 
@@ -29,15 +41,49 @@ class _ListenPageState extends State<ListenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: <Widget>[
-          currentLocation == null
-              ? CircularProgressIndicator()
-              : Text("Location:" +
-                  currentLocation["latitude"].toString() +
-                  " " +
-                  currentLocation["longitude"].toString()),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            userLocation == null
+                ? CircularProgressIndicator()
+                : Text("User location is :\n " +
+                    '\nName: ' +
+                    userLocation[0].name +
+                    '\nCountry: ' +
+                    userLocation[0].country +
+                    '\nAA: ' +
+                    userLocation[0].administrativeArea +
+                    '\nLocality: ' +
+                    userLocation[0].locality +
+                    '\nSAA: ' +
+                    userLocation[0].subAdministrativeArea +
+                    '\nSubLocality: ' +
+                    userLocation[0].subLocality +
+                    '\nTF: ' +
+                    userLocation[0].thoroughfare +
+                    '\nSTF: ' +
+                    userLocation[0].subThoroughfare),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                onPressed: () {
+                  getLocation().then((value) {
+                    setState(() {
+                      print(value);
+                      userLocation = value;
+                    });
+                  });
+                },
+                color: Colors.blue,
+                child: Text(
+                  "Get Location",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

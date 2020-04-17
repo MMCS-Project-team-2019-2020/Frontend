@@ -38,7 +38,7 @@ class _FluidNavBarDemoState extends State {
     setState(() {
       switch (index) {
         case 0:
-          _child = ListenPage();
+          _child = ScanScreen();
           break;
         case 1:
           _child = AccountContent();
