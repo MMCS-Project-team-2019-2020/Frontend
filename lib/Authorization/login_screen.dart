@@ -23,15 +23,20 @@ class _LoginScreenState extends State<LoginScreen> {
       fontWeight: FontWeight.bold);
 
   Future<void> chageController() async {
-    await logIn(_loginInput, _passwordInput).then((_) {
-      print("PassControler is $passController");
-      if (passController) {
-        first_time = true;
-        user_list = {};
-        passController = false;
-        Navigator.push(context, MaterialPageRoute(builder: (context) => App()));
-      }
-    });
+    if (_loginInput != "" && _passwordInput != "") {
+      await logIn(_loginInput, _passwordInput).then((_) {
+        print("PassControler is $passController");
+        if (passController) {
+          first_time = true;
+          user_list = {};
+          _loginInput = "";
+          _passwordInput = "";
+          passController = false;
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => App()));
+        }
+      });
+    }
   }
 
   void goToReg() => Navigator.push(
@@ -122,7 +127,6 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text("PassStatus:" + passController.toString()),
             SizedBox(height: 30),
             Column(children: <Widget>[
               Container(color: Colors.white),

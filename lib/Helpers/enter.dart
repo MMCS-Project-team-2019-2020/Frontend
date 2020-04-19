@@ -121,10 +121,11 @@ Future<void> getCard(String card_id) async {
 }
 
 // Получение карточки от пользователя. Используется для qr-scan.
-Future<void> getCardToUser(String owner_id, String card_id, User user) async {
+Future<void> getCardToUser(
+    String owner_id, String card_id, String geo, User user) async {
   String _request = "$url?action=give-card&id_owner=$owner_id&id_recipient=" +
       user.id +
-      "&id_card=$card_id";
+      "&id_card=$card_id&gps=$geo";
   print("Adding card with request \n $_request");
   await http.get(_request).then((response) {
     var answer = json.decode(response.body);

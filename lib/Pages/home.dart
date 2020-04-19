@@ -135,7 +135,7 @@ class _ScanState extends State<ScanScreen> {
     try {
       print("Accepting...");
       print(ownerID);
-      await getCardToUser(ownerID, cardID, main_user).then((_) {
+      await getCardToUser(ownerID, cardID, location, main_user).then((_) {
         inProcess = true;
         print("Filling...");
         user_list = {};
