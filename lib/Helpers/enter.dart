@@ -29,7 +29,7 @@ class User {
   String mail;
   String login;
   String card_id;
-  List<String> own_cards;
+  Map<String, String> own_cards;
 
   //Конструктор класса. Все поля пусты изначально.
   User({
@@ -43,7 +43,7 @@ class User {
     this.mail = " ",
     this.login = " ",
     this.card_id = " ",
-    this.own_cards = const [],
+    this.own_cards = const {},
   });
 
   //Вывод всех полей пользователя. Нужен для дебага, вывод идёт в консоль.
@@ -87,9 +87,9 @@ Future<void> getProfile(String id_user, User user_profile) async {
       print("Answer for cards is $answer");
       if (answer['status'] == 1) {
         //Если у пользователя есть карточки
-        user_profile.own_cards = answer['cards'].cast<String>();
+        user_profile.own_cards = answer['cards'].cast<String, String>();
       }
-      //user_profile.PrintUser();
+      user_profile.PrintUser();
     });
   });
 }

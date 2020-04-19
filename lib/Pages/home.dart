@@ -138,7 +138,7 @@ class _ScanState extends State<ScanScreen> {
       await getCardToUser(ownerID, cardID, main_user).then((_) {
         inProcess = true;
         print("Filling...");
-        user_list = [];
+        user_list = {};
         setState(() {
           _isCard = false;
           barcode = "";

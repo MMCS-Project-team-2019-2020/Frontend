@@ -27,7 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
       print("PassControler is $passController");
       if (passController) {
         first_time = true;
-        user_list = [];
+        user_list = {};
+        passController = false;
         Navigator.push(context, MaterialPageRoute(builder: (context) => App()));
       }
     });
@@ -37,8 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       context, MaterialPageRoute(builder: (context) => Registry()));
   @override
   Widget build(BuildContext context) {
-    final loginField = TextFormField( 
-      
+    final loginField = TextFormField(
       obscureText: false,
       style: style,
       keyboardType: TextInputType.emailAddress,
@@ -63,59 +63,55 @@ class _LoginScreenState extends State<LoginScreen> {
           hintText: 'Password',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
     );
-    
-    final _enterButton = Column(
-      children: <Widget>[
-      SizedBox(height: 10,),
-      Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(20),
-      color: Color(0xff3498DB),
-        child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
-          print("Button pressed!");
-          chageController();
-        },
-        child: Text("Войти",
-    
-            textAlign: TextAlign.center,
-            style: style.copyWith(
-                color: Colors.white, fontWeight: FontWeight.bold)),
-      ),
-    ),
-    ]
-    );
-    
-    final _registry = Column(
-      children: <Widget>[
-      SizedBox(height: 10,),
-      Container(
 
-      margin: EdgeInsets.only(bottom: 200),
-      child: Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(20),
-      color: Color(0xff3498DB),
-      child: Container(
-      
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        
-        onPressed: () {
-          print("Switched to registry");
-          goToReg();
-        },
-        child: Text("Регистрация",
-            textAlign: TextAlign.center,
-            style: style.copyWith(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+    final _enterButton = Column(children: <Widget>[
+      SizedBox(
+        height: 10,
       ),
+      Material(
+        elevation: 5,
+        borderRadius: BorderRadius.circular(20),
+        color: Color(0xff3498DB),
+        child: MaterialButton(
+          minWidth: MediaQuery.of(context).size.width,
+          onPressed: () {
+            print("Button pressed!");
+            chageController();
+          },
+          child: Text("Войти",
+              textAlign: TextAlign.center,
+              style: style.copyWith(
+                  color: Colors.white, fontWeight: FontWeight.bold)),
+        ),
       ),
+    ]);
+
+    final _registry = Column(children: <Widget>[
+      SizedBox(
+        height: 10,
       ),
+      Container(
+        margin: EdgeInsets.only(bottom: 200),
+        child: Material(
+          elevation: 5,
+          borderRadius: BorderRadius.circular(20),
+          color: Color(0xff3498DB),
+          child: Container(
+            child: MaterialButton(
+              minWidth: MediaQuery.of(context).size.width,
+              onPressed: () {
+                print("Switched to registry");
+                goToReg();
+              },
+              child: Text("Регистрация",
+                  textAlign: TextAlign.center,
+                  style: style.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
+          ),
+        ),
       ),
-      ]
-    );
+    ]);
 
     return Scaffold(
       backgroundColor: Color(0xff22313F),
