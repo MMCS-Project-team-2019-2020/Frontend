@@ -6,7 +6,7 @@ import '../mainpage.dart';
 import './registry.dart';
 
 String _loginInput;
-String user_id;
+int user_id;
 String _passwordInput;
 bool passController = false; // Проверка аутентификации.
 
